@@ -1,30 +1,15 @@
 <script>
-	export let name;
+  import Login from "./components/login/Login.svelte";
+  import Main from "./components/Main.svelte";
+
+  let loggedIn = !false;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  App
+  {#if !loggedIn}
+    <Login />
+  {:else}
+    <Main />
+  {/if}
 </main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
