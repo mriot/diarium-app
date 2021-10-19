@@ -1,15 +1,13 @@
 <script>
   import Login from "./components/login/Login.svelte";
   import Main from "./components/Main.svelte";
-
-  let loggedIn = !false;
+  import { loggedIn } from "./stores/userStore";
 </script>
 
-<main>
-  App
-  {#if !loggedIn}
+<div>
+  {#if !$loggedIn}
     <Login />
   {:else}
     <Main />
   {/if}
-</main>
+</div>
