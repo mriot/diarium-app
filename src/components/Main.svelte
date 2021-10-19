@@ -5,4 +5,4 @@
 </script>
 
 <h1>ja lol ey</h1>
-<Datepicker {disabled} {marked} />
+<Datepicker {marked} />
