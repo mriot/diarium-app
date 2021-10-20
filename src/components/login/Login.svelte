@@ -1,6 +1,17 @@
 <script>
-  import { loggedIn } from "../../stores/userStore.js";
+  import { loggedIn, secret } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
+
+  const login = () => {
+    // TODO: check database
+    // TODO: check secret (try decrypting)
+    // loggedIn.set(true);
+
+    // console.log(window.api);
+    console.log(api.test().then(data => console.log(data.filePaths)));
+    // window.lorem.helloworld();
+    // console.log(window.ipcRenderer);
+  };
 </script>
 
 <div class="container" transition:slide>
@@ -12,9 +23,9 @@
     </div>
     <div class="group">
       <span>Your Secret</span>
-      <input type="text" name="" id="" />
+      <input type="text" bind:value={$secret} />
     </div>
-    <button on:click={() => loggedIn.set(true)}>Launch</button>
+    <button on:click={() => login()}>Launch</button>
   </div>
 </div>
 
@@ -98,7 +109,6 @@
 
     &:hover,
     &:focus {
-      padding-right: 4em;
       box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
       transition: all 0.4s ease 0s;
 
