@@ -2,16 +2,15 @@ const { ipcMain, dialog } = require("electron");
 
 module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("get-config", async (event, args) => {
-    const settings = await config.get();
-    return settings;
+    return await config.get();
   });
 
   ipcMain.handle("db-picker", async (event, args) => {
     const result = await dialog.showOpenDialog(browserWindow, {
       filters: [
         {
-          name: "diarium",
-          extensions: ["sqlite"]
+          // name: "diarium",
+          // extensions: ["sqlite"]
         }
       ],
       multiSelections: false,
@@ -19,7 +18,10 @@ module.exports = ({ config, browserWindow }) => {
       message: "Select your DIARIUM database"
     });
 
-    console.log(result);
-    return result;
+    if (!result.canceled) {
+      config.write("dbPath", result.filePaths[0]);
+      return result;
+    }
+    return false;
   });
 };

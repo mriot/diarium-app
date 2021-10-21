@@ -1,8 +1,11 @@
 <script>
-  import { loggedIn, secret, config } from "../../stores/userStore.js";
+  import { loggedIn, secret } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
+  const { api } = window; // electron
 
-  api.getConfig().then(configData => config.set(configData));
+  let dbPath = "";
+
+  api.getConfig().then(config => (dbPath = config.dbPath));
 
   const login = async () => {
     // TODO: check database
@@ -16,7 +19,21 @@
   <div class="box">
     <div class="group">
       <span>Your Database</span>
-      <input type="text" value={$config.dbPath} />
+      <input type="text" value={dbPath} />
+      <button
+        on:click={async () => {
+          const result = await api.selectDb();
+          console.log(result);
+
+          if (!result.canceled) {
+            // config.update(config => {
+            //   config.dbPath = result.filePaths[0];
+            //   return config;
+            // });
+            api.getConfig().then(config => (dbPath = config.dbPath));
+          }
+        }}>Select</button
+      >
     </div>
     <div class="group">
       <span>Your Secret</span>

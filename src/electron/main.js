@@ -23,7 +23,7 @@ app.whenReady().then(async () => {
     }
   });
 
-  require("./icp")({ config, mainWindow });
+  require("./ipc")({ config, mainWindow });
 
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));
   process.env.ROLLUP_WATCH && mainWindow.webContents.openDevTools();
