@@ -1,10 +1,11 @@
 <script>
   import { loggedIn, secret } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
+  import Fa from "svelte-fa";
+  import { faDatabase, faFile } from "@fortawesome/free-solid-svg-icons";
   const { api } = window; // electron
 
   let dbPath = "";
-
   api.getConfig().then(config => (dbPath = config.dbPath));
 
   const login = async () => {
@@ -19,15 +20,18 @@
   <div class="box">
     <div class="group">
       <span>Your Database</span>
-      <input type="text" value={dbPath} />
-      <button
+      <div
+        class="db-select"
         on:click={async () => {
           const result = await api.selectDb();
           if (result) {
             api.getConfig().then(config => (dbPath = config.dbPath));
           }
-        }}>Select</button
+        }}
       >
+        <input type="text" value={dbPath} />
+        <button><Fa icon={faDatabase} /></button>
+      </div>
     </div>
     <div class="group">
       <span>Your Secret</span>
@@ -68,6 +72,25 @@
     }
   }
 
+  .db-select {
+    display: flex;
+
+    input {
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      direction: rtl;
+      border-radius: 5px 0 0 5px;
+    }
+
+    button {
+      margin: 0;
+      padding: 0 1.2em;
+      border-radius: 0 5px 5px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+
   input {
     appearance: none;
     width: 100%;
@@ -102,35 +125,8 @@
     white-space: nowrap;
     text-decoration: none;
 
-    &::after {
-      content: "";
-      position: relative;
-      width: 0.5em;
-      height: 0.5em;
-      border: 2px solid transparent;
-      border-top-color: #efefef;
-      border-right-color: #efefef;
-      opacity: 0;
-      transform: rotate(45deg) translate(-20px, 20px);
-      transition-delay: 0;
-      transition-duration: 0;
-    }
-
-    &:hover,
-    &:focus {
-      box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
-      transition: all 0.4s ease 0s;
-
-      &::after {
-        opacity: 1;
-        transform: rotate(45deg) translate(12px, -12px);
-        transition: all 200ms ease;
-        transition-delay: 100ms;
-      }
-    }
-
-    &:active {
-      box-shadow: inset 0 0px 0 -5px rgba(0, 0, 0, 0.17);
+    &:hover {
+      background-color: lighten(#363b47, 10%);
     }
   }
 </style>
