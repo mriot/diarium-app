@@ -19,7 +19,7 @@ module.exports = ({ config, browserWindow }) => {
     });
 
     if (!result.canceled) {
-      config.write("dbPath", result.filePaths[0]);
+      await config.write("dbPath", result.filePaths[0]);
       return result;
     }
     return false;

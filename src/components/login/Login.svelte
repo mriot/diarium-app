@@ -23,13 +23,7 @@
       <button
         on:click={async () => {
           const result = await api.selectDb();
-          console.log(result);
-
-          if (!result.canceled) {
-            // config.update(config => {
-            //   config.dbPath = result.filePaths[0];
-            //   return config;
-            // });
+          if (result) {
             api.getConfig().then(config => (dbPath = config.dbPath));
           }
         }}>Select</button
@@ -37,7 +31,7 @@
     </div>
     <div class="group">
       <span>Your Secret</span>
-      <input type="text" bind:value={$secret} />
+      <input type="text" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
     </div>
     <button on:click={() => login()}>Launch</button>
   </div>
