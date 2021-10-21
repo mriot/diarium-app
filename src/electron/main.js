@@ -1,11 +1,10 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
-const config = require("./config-handler");
+const config = require("./config-manager");
 
 process.env.ROLLUP_WATCH && require("electron-reload")(path.join(__dirname, "../"));
 
 config.init();
-
 let mainWindow = null;
 
 app.whenReady().then(async () => {
@@ -24,14 +23,8 @@ app.whenReady().then(async () => {
     }
   });
 
+  require("./icp")({ config, mainWindow });
+
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));
   process.env.ROLLUP_WATCH && mainWindow.webContents.openDevTools();
-});
-
-ipcMain.handle("get-config", async (event, args) => {
-  const settings = await config.get();
-  return settings;
-  // const result = await dialog.showOpenDialog(mainWindow, { title: "asdf" });
-  // console.log(result);
-  // return result;
 });
