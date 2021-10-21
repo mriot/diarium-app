@@ -1,16 +1,13 @@
 <script>
-  import { loggedIn, secret } from "../../stores/userStore.js";
+  import { loggedIn, secret, config } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
 
-  const login = () => {
+  api.getConfig().then(configData => config.set(configData));
+
+  const login = async () => {
     // TODO: check database
     // TODO: check secret (try decrypting)
     // loggedIn.set(true);
-
-    // console.log(window.api);
-    console.log(api.test().then(data => console.log(data.filePaths)));
-    // window.lorem.helloworld();
-    // console.log(window.ipcRenderer);
   };
 </script>
 
@@ -19,7 +16,7 @@
   <div class="box">
     <div class="group">
       <span>Your Database</span>
-      <input type="file" name="" id="" />
+      <input type="text" value={$config.dbPath} />
     </div>
     <div class="group">
       <span>Your Secret</span>
@@ -49,6 +46,7 @@
   h1 {
     font-size: 5rem;
     margin: 0.3em;
+    color: #ddd;
   }
 
   .group {

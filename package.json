@@ -2,7 +2,7 @@
   "name": "diarium-app",
   "version": "1.0.0",
   "private": true,
-  "main": "electron-main.js",
+  "main": "./src/electron/main.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -32,6 +32,7 @@
     "dayjs": "^1.10.7",
     "praecox-datepicker": "^1.1.6",
     "sirv-cli": "^1.0.0",
+    "sqlite3": "^5.0.2",
     "svelte-fa": "^2.3.3"
   }
 }
