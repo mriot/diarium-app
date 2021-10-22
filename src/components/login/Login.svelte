@@ -6,7 +6,7 @@
   const { api } = window; // electron
 
   let dbPath = "";
-  api.getConfig().then(config => (dbPath = config.dbPath));
+  api.getConfig("dbPath").then(data => (dbPath = data));
 
   const login = async () => {
     // TODO: check database
@@ -25,7 +25,7 @@
         on:click={async () => {
           const result = await api.selectDb();
           if (result) {
-            api.getConfig().then(config => (dbPath = config.dbPath));
+            api.getConfig("dbPath").then(data => (dbPath = data));
           }
         }}
       >

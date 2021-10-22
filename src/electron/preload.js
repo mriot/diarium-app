@@ -2,6 +2,6 @@ const { contextBridge, ipcRenderer } = require("electron");
 const fs = require("fs");
 
 contextBridge.exposeInMainWorld("api", {
-  getConfig: () => ipcRenderer.invoke("get-config"),
+  getConfig: args => ipcRenderer.invoke("get-config", args),
   selectDb: () => ipcRenderer.invoke("db-picker")
 });

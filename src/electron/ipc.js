@@ -2,7 +2,7 @@ const { ipcMain, dialog } = require("electron");
 
 module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("get-config", async (event, args) => {
-    return await config.get();
+    return await config.get(args);
   });
 
   ipcMain.handle("db-picker", async (event, args) => {
