@@ -10,7 +10,7 @@ process.env.ROLLUP_WATCH &&
   });
 
 // DEV: soft reload frontend
-process.env.ROLLUP_WATCH && require("electron-reload")(path.join(__dirname, "../"));
+process.env.ROLLUP_WATCH && require("electron-reload")(path.join(__dirname, "../../"));
 
 config.init();
 let mainWindow = null;
