@@ -1,6 +1,7 @@
 const { ipcMain, dialog, app } = require("electron");
 const path = require("path");
 const { mkdir } = require("fs/promises");
+const db = require("./db-manager");
 
 module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("get-config", async (event, args) => {
@@ -57,9 +58,13 @@ module.exports = ({ config, browserWindow }) => {
       return false;
     }
 
-    // create and init DB "diarium/diarium.sqlite"
+    db.init(diariumPath);
+    db.createDb();
 
     await config.write("dbPath", diariumPath);
+
+    dialog.showMessageBox(browserWindow, { message: `Done!`, type: "info" });
+
     return diariumPath;
   });
 };

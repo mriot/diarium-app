@@ -2,24 +2,37 @@
 // GET records
 // WRITE records
 // UPDATE records
-const sqlite3 = require("sqlite3");
-const knex = require("knex")({
-  client: "sqlite3",
-  connection: {
-    filename: "./diarium.db"
-  },
-  useNullAsDefault: true,
-  debug: true
-});
+
+const { dialog } = require("electron");
+const path = require("path");
 
 module.exports = {
+  knex: null,
+
+  init(diariumPath) {
+    try {
+      this.knex = require("knex")({
+        client: "sqlite3",
+        connection: {
+          filename: path.join(diariumPath, "diarium.db")
+        },
+        useNullAsDefault: true,
+        debug: false
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async createDb() {
-    console.log("lol");
-    const test = await knex.schema.createTable("users", function (table) {
-      table.increments();
-      table.string("name");
-      table.timestamps();
-    });
-    console.log(test.sql);
+    try {
+      await this.knex.schema.createTable("records", function (table) {
+        table.increments();
+        table.text("content", "MEDIUMTEXT");
+        table.timestamps();
+      });
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not create database\n\n${error}`, type: "error" });
+    }
   }
 };
