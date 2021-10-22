@@ -2,10 +2,15 @@ const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const config = require("./config-manager");
 
+// DEV: hard reload electron stuff
 process.env.ROLLUP_WATCH &&
-  require("electron-reload")(path.join(__dirname, "../"), {
-    electron: path.join(__dirname, "../../", "node_modules", ".bin", "electron")
+  require("electron-reload")(path.join(__dirname, "./"), {
+    electron: path.join(__dirname, "../../", "node_modules", ".bin", "electron"),
+    forceHardReset: true
   });
+
+// DEV: soft reload frontend
+process.env.ROLLUP_WATCH && require("electron-reload")(path.join(__dirname, "../"));
 
 config.init();
 let mainWindow = null;
