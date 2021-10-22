@@ -2,7 +2,7 @@
   import { loggedIn, secret } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
   import Fa from "svelte-fa";
-  import { faDatabase, faFile } from "@fortawesome/free-solid-svg-icons";
+  import { faDatabase, faFile, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
   const { api } = window; // electron
 
   let dbPath = "";
@@ -19,7 +19,7 @@
   <h1>DIARIUM</h1>
   <div class="box">
     <div class="group">
-      <span>Your Database</span>
+      <span>Select your diary location</span>
       <div
         class="db-select"
         on:click={async () => {
@@ -29,15 +29,21 @@
           }
         }}
       >
-        <input type="text" value={dbPath} />
-        <button><Fa icon={faDatabase} /></button>
+        <input type="text" value={dbPath || "Not selected"} />
+        <button class="button"><Fa icon={faFolderOpen} /></button>
       </div>
+      <button
+        class="button create-button"
+        on:click={async () => {
+          api.createDiarium();
+        }}>Or create a new one</button
+      >
     </div>
     <div class="group">
       <span>Your Secret</span>
       <input type="text" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
     </div>
-    <button on:click={() => login()}>Launch</button>
+    <button class="button" on:click={() => login()}>Launch</button>
   </div>
 </div>
 
@@ -79,11 +85,12 @@
       cursor: pointer;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: left;
       direction: rtl;
       border-radius: 5px 0 0 5px;
     }
 
-    button {
+    .button {
       margin: 0;
       padding: 0 1.2em;
       border-radius: 0 5px 5px 0;
@@ -107,7 +114,7 @@
     transition: border 0.3s, box-shadow 0.2s, color 0.5s;
   }
 
-  button {
+  .button {
     position: relative;
     display: flex;
     align-items: center;
@@ -121,12 +128,22 @@
     border-radius: 5px;
     border: none;
     user-select: none;
-    transition: all 0.2s;
     white-space: nowrap;
     text-decoration: none;
+    transition: all 0.2s;
 
     &:hover {
       background-color: lighten(#363b47, 10%);
     }
+  }
+
+  .create-button {
+    width: 100%;
+    margin-top: 0;
+    padding: 0.5em 0;
+    font-size: 0.8rem;
+    display: block;
+    text-align: center;
+    background-color: darken(#363b47, 5%);
   }
 </style>

@@ -1,6 +1,9 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const config = require("./config-manager");
+const db = require("./db-manager");
+
+process.env.ROLLUP_WATCH && console.clear();
 
 // DEV: hard reload electron stuff
 process.env.ROLLUP_WATCH &&
@@ -36,3 +39,5 @@ app.whenReady().then(async () => {
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));
   process.env.ROLLUP_WATCH && mainWindow.webContents.openDevTools();
 });
+
+db.createDb();
