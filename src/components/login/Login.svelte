@@ -9,9 +9,12 @@
   api.getConfig("dbPath").then(data => (dbPath = data));
 
   const login = async () => {
-    // TODO: check database
-    // TODO: check secret (try decrypting)
-    // loggedIn.set(true);
+    api.secret($secret);
+    api.addRecord({
+      date: new Date().getDate(),
+      content: "<h1>Hello World!</h1>",
+      tags: "lorem ipsum"
+    });
   };
 </script>
 
@@ -41,7 +44,7 @@
     </div>
     <div class="group">
       <span>Your Secret</span>
-      <input type="text" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
+      <input type="password" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
     </div>
     <button class="button" on:click={() => login()}>Launch</button>
   </div>

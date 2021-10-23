@@ -1,8 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const config = require("./config-manager");
-
-process.env.ROLLUP_WATCH && console.clear();
+const db = require("./db-manager");
 
 // DEV: hard reload electron stuff
 process.env.ROLLUP_WATCH &&
@@ -33,6 +32,8 @@ app.whenReady().then(async () => {
     }
   });
 
+  const dbPath = await config.get("dbPath");
+  db.init(dbPath);
   require("./ipc")({ config, mainWindow });
 
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));

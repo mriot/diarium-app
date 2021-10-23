@@ -28,6 +28,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@journeyapps/sqlcipher": "^5.2.0",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
     "knex": "^0.95.11",

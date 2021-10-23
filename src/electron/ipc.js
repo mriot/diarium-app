@@ -4,10 +4,12 @@ const { mkdir } = require("fs/promises");
 const db = require("./db-manager");
 
 module.exports = ({ config, browserWindow }) => {
+  // GET CONFIG
   ipcMain.handle("get-config", async (event, args) => {
     return await config.get(args);
   });
 
+  // SELECT DIARIUM LOCATION
   ipcMain.handle("db-picker", async (event, args) => {
     const result = await dialog.showOpenDialog(browserWindow, {
       defaultPath: app.getPath("desktop"),
@@ -23,8 +25,8 @@ module.exports = ({ config, browserWindow }) => {
     return false;
   });
 
+  // CREATE DIARIUM LOCATION
   ipcMain.handle("create-diarium", async (events, args) => {
-    // let user pick location
     const result = await dialog.showOpenDialog(browserWindow, {
       defaultPath: app.getPath("desktop"),
       properties: ["openDirectory"],
@@ -66,5 +68,15 @@ module.exports = ({ config, browserWindow }) => {
     dialog.showMessageBox(browserWindow, { message: `Done!`, type: "info" });
 
     return diariumPath;
+  });
+
+  // SECRET
+  ipcMain.handle("secret", (event, args) => {
+    global.SECRET = "args";
+  });
+
+  // ADD RECORD
+  ipcMain.handle("add-record", (event, args) => {
+    db.addRecord(args);
   });
 };
