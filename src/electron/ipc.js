@@ -44,7 +44,10 @@ module.exports = ({ config, browserWindow }) => {
     try {
       await mkdir(diariumPath);
     } catch (error) {
-      const message = error.code == "EEXIST" ? `Oops there is already a folder named "diarium"` : `Something went wrong :/ \n\nError: ${error.code}`;
+      const message =
+        error.code == "EEXIST"
+          ? `Oops there is already a folder named "diarium"`
+          : `Something went wrong :/ \n\nError: ${error.code}`;
       dialog.showMessageBox(browserWindow, { message, type: "error" });
       return false;
     }
@@ -73,6 +76,8 @@ module.exports = ({ config, browserWindow }) => {
   // SECRET
   ipcMain.handle("secret", (event, args) => {
     global.SECRET = "args";
+    // db.createMockData();
+    db.getRecord(2022, 10, 23).then(data => console.log(data));
   });
 
   // ADD RECORD

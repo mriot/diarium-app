@@ -33,7 +33,7 @@ app.whenReady().then(async () => {
   });
 
   const dbPath = await config.get("dbPath");
-  db.init(dbPath);
+  if (dbPath) db.init(dbPath);
   require("./ipc")({ config, mainWindow });
 
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));

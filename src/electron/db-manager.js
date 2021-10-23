@@ -6,6 +6,7 @@
 const { dialog } = require("electron");
 const path = require("path");
 const AES = require("crypto-js/aes");
+const dayjs = require("dayjs");
 
 module.exports = {
   knex: null,
@@ -39,6 +40,49 @@ module.exports = {
     }
   },
 
+  async getAllRecords() {
+    try {
+      return await this.knex.select(["id", "date", "tags"]).from("records");
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
+    }
+  },
+
+  async getRecordsForYear(year) {
+    try {
+      const parsedDate = dayjs(year, "YYYY");
+      return await this.knex
+        .select(["id", "date", "tags"])
+        .from("records")
+        .where("date", ">", parsedDate.format())
+        .andWhere("date", "<", parsedDate.add(1, "year").format());
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
+    }
+  },
+
+  async getRecordsForMonthInYear(year, month) {
+    try {
+      const parsedDate = dayjs([...arguments].join("-"), "YYYY-MM");
+      return await this.knex
+        .select(["id", "date", "tags"])
+        .from("records")
+        .where("date", ">", parsedDate.format())
+        .andWhere("date", "<", parsedDate.add(1, "month").format());
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
+    }
+  },
+
+  async getRecord(year, month, day) {
+    try {
+      const parsedDate = dayjs([...arguments].join("-"), "YYYY-MM-DD");
+      return await this.knex.select("*").from("records").where("date", parsedDate.format("YYYY-MM-DD")); // explicitly force format
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
+    }
+  },
+
   async addRecord(record) {
     try {
       await this.knex("records").insert({
@@ -53,11 +97,28 @@ module.exports = {
 
   async getRecordById(id) {
     try {
-      const result = await this.knex.select("*").from("records").where("id", id);
-      console.log("outputty:", result);
+      // TODO: decrypt results
+      return await this.knex.select("*").from("records").where("id", id);
       // console.log("outputty:", AES.decrypt(result[0].content, global.SECRET));
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
+    }
+  },
+
+  async createMockData() {
+    console.log("CREATING MOCK DATA");
+    try {
+      for (let i = 0; i < 25; i++) {
+        await this.knex("records").insert({
+          date: dayjs().add(i, "month").format("YYYY-MM-DD"),
+          content: `<h1>Hello World ${i}</h1>`,
+          // content: AES.encrypt(`<h1>Hello World ${i}</h1>`, global.SECRET),
+          tags: "ja lol ey"
+        });
+      }
+      console.log("DONE");
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not create mock data\n\n${error}`, type: "error" });
     }
   }
 };
