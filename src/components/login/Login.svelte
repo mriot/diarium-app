@@ -2,11 +2,23 @@
   import { loggedIn, secret } from "../../stores/userStore.js";
   import { slide } from "svelte/transition";
   import Fa from "svelte-fa";
-  import { faDatabase, faFile, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+  import { faDatabase, faFile, faFolderOpen, faFolderPlus } from "@fortawesome/free-solid-svg-icons";
   const { api } = window; // electron
 
   let dbPath = "";
   api.getConfig("dbPath").then(data => (dbPath = data));
+
+  const selectDir = async () => {
+    const result = await api.selectDb();
+    console.log(result);
+    if (result) {
+      api.getConfig("dbPath").then(data => (dbPath = data));
+    }
+  };
+
+  const createNew = async () => {
+    api.createDiarium();
+  };
 
   const login = async () => {
     api.secret($secret);
@@ -21,33 +33,24 @@
 <div class="container" transition:slide>
   <h1>DIARIUM</h1>
   <div class="box">
-    <div class="group">
-      <span>Select your diary location</span>
-      <div
-        class="db-select"
-        on:click={async () => {
-          const result = await api.selectDb();
-          console.log(result);
-          if (result) {
-            api.getConfig("dbPath").then(data => (dbPath = data));
-          }
-        }}
-      >
-        <input type="text" value={dbPath || "Not selected"} />
-        <button class="button"><Fa icon={faFolderOpen} /></button>
+    {#if !dbPath}
+      <button class="button" on:click={selectDir}><Fa icon={faFolderOpen} /> &nbsp;Select your diary location</button>
+      <button class="button" on:click={createNew}><Fa icon={faFolderPlus} /> &nbsp;Create a new diary</button>
+    {:else}
+      <div class="group">
+        <span>Your diary location</span>
+        <div class="db-select" on:click={selectDir}>
+          <input type="text" value={dbPath || "Not selected"} />
+          <button class="button"><Fa icon={faFolderOpen} /></button>
+        </div>
+        <a href="#" on:click|preventDefault={createNew}>Create a new one</a>
       </div>
-      <button
-        class="button create-button"
-        on:click={async () => {
-          api.createDiarium();
-        }}>Or create a new one</button
-      >
-    </div>
-    <div class="group">
-      <span>Your Secret</span>
-      <input type="password" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
-    </div>
-    <button class="button" on:click={() => login()}>Launch</button>
+      <div class="group">
+        <span>Your Secret</span>
+        <input type="password" bind:value={$secret} placeholder="xxxxxxxxxxxxxxxxxxxx" />
+      </div>
+      <button class="button" on:click={login}>Launch</button>
+    {/if}
   </div>
 </div>
 
