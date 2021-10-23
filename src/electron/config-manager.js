@@ -1,4 +1,4 @@
-const { app } = require("electron");
+const { app, dialog } = require("electron");
 const path = require("path");
 const { readFile, writeFile, stat } = require("fs/promises");
 
@@ -22,6 +22,11 @@ module.exports = {
       return setting ? config[setting] : config;
     } catch (error) {
       console.log("config.get() failed!", error);
+      writeFile(this._configPath, JSON.stringify({}));
+      dialog.showMessageBox(null, {
+        message: "Ooops, couldn't read the config file!\n\nFalling back to default config.",
+        type: "error"
+      });
     }
   },
 
