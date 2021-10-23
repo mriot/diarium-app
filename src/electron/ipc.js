@@ -1,6 +1,6 @@
 const { ipcMain, dialog, app } = require("electron");
 const path = require("path");
-const { mkdir } = require("fs/promises");
+const { mkdir, stat } = require("fs/promises");
 const db = require("./db-manager");
 
 module.exports = ({ config, browserWindow }) => {
@@ -19,6 +19,16 @@ module.exports = ({ config, browserWindow }) => {
     });
 
     if (!result.canceled) {
+      try {
+        await stat(path.join(result.filePaths[0], "diarium.db"));
+      } catch (error) {
+        dialog.showMessageBox(browserWindow, {
+          message: "Ooops, couldn't find the database!\n\nPlease make sure you have selected the right location.",
+          type: "error"
+        });
+        return false;
+      }
+
       await config.write("dbPath", result.filePaths[0]);
       return result;
     }
