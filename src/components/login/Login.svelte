@@ -10,11 +10,11 @@
 
   const login = async () => {
     api.secret($secret);
-    api.addRecord({
-      date: new Date().getDate(),
-      content: "<h1>Hello World!</h1>",
-      tags: "lorem ipsum"
-    });
+    // api.addRecord({
+    //   date: new Date().getDate(),
+    //   content: "<h1>Hello World!</h1>",
+    //   tags: "lorem ipsum"
+    // });
   };
 </script>
 
@@ -27,6 +27,7 @@
         class="db-select"
         on:click={async () => {
           const result = await api.selectDb();
+          console.log(result);
           if (result) {
             api.getConfig("dbPath").then(data => (dbPath = data));
           }

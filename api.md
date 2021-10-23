@@ -32,12 +32,12 @@ Returns all records for the given year (YYYY)
 Object[]: getRecordsForYear(String: year)
 ```
 
-### getRecordsFromMonthInYear
+### getRecordsForMonthInYear
 
 Returns all records for the given year (YYYY)
 
 ```ts
-Object[]: getRecordsFromMonthInYear(String: month, String: year)
+Object[]: getRecordsForMonthInYear(String: month, String: year)
 ```
 
 ### getRecord
