@@ -22,11 +22,7 @@
 
   const login = async () => {
     api.secret($secret);
-    // api.addRecord({
-    //   date: new Date().getDate(),
-    //   content: "<h1>Hello World!</h1>",
-    //   tags: "lorem ipsum"
-    // });
+    loggedIn.set(true);
   };
 </script>
 
@@ -43,7 +39,7 @@
           <input type="text" value={dbPath || "Not selected"} />
           <button class="button"><Fa icon={faFolderOpen} /></button>
         </div>
-        <a href="#" on:click|preventDefault={createNew}>Create a new one</a>
+        <a href="#x" on:click|preventDefault={createNew}>Create a new one</a>
       </div>
       <div class="group">
         <span>Your Secret</span>
@@ -142,15 +138,5 @@
     &:hover {
       background-color: lighten(#363b47, 10%);
     }
-  }
-
-  .create-button {
-    width: 100%;
-    margin-top: 0;
-    padding: 0.5em 0;
-    font-size: 0.8rem;
-    display: block;
-    text-align: center;
-    background-color: darken(#363b47, 5%);
   }
 </style>
