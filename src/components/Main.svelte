@@ -3,66 +3,55 @@
   import Fa from "svelte-fa";
   import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
   import { fade } from "svelte/transition";
+  import Editor from "@toast-ui/editor";
+  import "@toast-ui/editor/dist/toastui-editor.css"; // Editor's Style
+  import { onMount } from "svelte";
+  import Nav from "./Nav.svelte";
+
+  let editor = null;
+
+  onMount(() => {
+    editor = new Editor({
+      el: document.querySelector("#editor"),
+      height: "500px",
+      initialEditType: "markdown", // markdown / wysiwyg
+      previewStyle: "vertical" // tab / vertical
+      // theme: "dark"
+    });
+  });
 
   let marked = ["2021-10-9"];
 </script>
 
-<div transition:fade>
-  <nav>
-    <h1>DIARIUM</h1>
-    <ul>
-      <li class="nav-button">Lorem</li>
-      <li class="nav-button">Ipsum</li>
-      <li>
-        <input type="text" class="input" placeholder="Search..." />
-      </li>
-      <li class="nav-button"><Fa icon={faSignOutAlt} /></li>
-    </ul>
-  </nav>
+<div id="root" transition:fade>
+  <Nav {editor} />
   <main>
     <Datepicker {marked} />
-    <div id="editor">Editor</div>
+    <div id="editor">
+      <h1>This is some nice content</h1>
+      <blockquote>This is a quote</blockquote>
+      <a href="google.com">This is a link</a>
+    </div>
   </main>
 </div>
 
 <style>
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #191919;
-  }
-  h1 {
-    font-size: 2rem;
-  }
-  nav ul {
-    display: flex;
-    align-items: center;
-    gap: 1.5em;
-  }
-  nav .nav-button {
-    position: relative;
-    cursor: pointer;
-    color: #9e9e9e;
-    padding: 7px 20px;
-    margin: 0 5px;
-    border-radius: 3px;
-    border-bottom: 1px solid transparent;
-    backface-visibility: hidden;
-    user-select: none;
-    transition: all 0.2s;
-  }
-  nav .nav-button:hover {
-    background-color: #33363e;
+  #root {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
   }
 
   main {
     display: flex;
-    background-color: rgba(255, 0, 0, 0.1);
+    width: 100%;
+    grid-column: 1/3;
+    justify-content: stretch;
   }
+
   #editor {
     width: 100%;
-    height: 500px;
-    background-color: rgba(255, 0, 0, 0.1);
+    background-color: #fff;
   }
 </style>
