@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, shell } = require("electron");
 const path = require("path");
 const config = require("./config-manager");
 const db = require("./db-manager");
@@ -38,4 +38,15 @@ app.whenReady().then(async () => {
 
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));
   process.env.ROLLUP_WATCH && mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.on("will-navigate", handleRedirect);
+  mainWindow.webContents.on("new-window", handleRedirect);
 });
+
+// don't open links in electron
+const handleRedirect = (event, url) => {
+  if (url != mainWindow.webContents.getURL()) {
+    event.preventDefault();
+    shell.openExternal(url);
+  }
+};
