@@ -5,7 +5,7 @@
   import { editMode } from "../stores/appStore";
   import Editor from "./Editor.svelte";
 
-  let marked = ["2021-10-9"];
+  let marked = ["2021-10-19"];
   let content = `<h1>This is some nice content</h1>
   <blockquote>This is a quote</blockquote>
   <a href="www.google.com">This is a link</a>
@@ -54,5 +54,9 @@
     width: 100%;
     overflow: hidden;
     background-color: #fff;
+  }
+
+  .content {
+    padding: 1em;
   }
 </style>

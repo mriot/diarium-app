@@ -20,7 +20,7 @@
 
     editor.setHTML(content ? content : `# ${dayjs().format("DD.MM.YYYY")}`);
 
-    // only when we populate default content
+    // only when we populate the editor with default content
     if (!content) {
       editor.moveCursorToEnd();
     }
