@@ -22,7 +22,7 @@
       {#if $editMode}
         <Editor {content} />
       {:else}
-        <div class="content" in:fade>
+        <div class="content toastui-editor-contents" in:fade>
           {@html content}
         </div>
       {/if}
@@ -30,7 +30,7 @@
   </main>
 </div>
 
-<style>
+<style lang="scss">
   #root {
     display: grid;
     grid-template-columns: auto 1fr;
