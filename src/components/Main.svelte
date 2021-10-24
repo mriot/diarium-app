@@ -6,6 +6,10 @@
   import Editor from "./Editor.svelte";
 
   let marked = ["2021-10-9"];
+  let content = `<h1>This is some nice content</h1>
+  <blockquote>This is a quote</blockquote>
+  <a href="www.google.com">This is a link</a>
+  <a href="./test2.html">Test Seite</a>`;
 </script>
 
 <div id="root" transition:fade>
@@ -14,13 +18,13 @@
     <div id="sidebar">
       <Datepicker {marked} />
     </div>
-    <div id="editor">
+    <div id="content-container">
       {#if $editMode}
-        <Editor />
+        <Editor {content} />
       {:else}
-        <h1>This is some nice content</h1>
-        <blockquote>This is a quote</blockquote>
-        <a href="google.com">This is a link</a>
+        <div class="content" in:fade>
+          {@html content}
+        </div>
       {/if}
     </div>
   </main>
@@ -45,7 +49,7 @@
     height: 100%;
   }
 
-  #editor {
+  #content-container {
     color: #000;
     width: 100%;
     overflow: hidden;
