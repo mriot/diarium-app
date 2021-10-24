@@ -1,6 +1,6 @@
 <script>
   import Fa from "svelte-fa";
-  import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+  import { faEdit, faPen, faSignOutAlt, faUserEdit } from "@fortawesome/free-solid-svg-icons";
   import TextInput from "./common/TextInput.svelte";
   import { editMode } from "../stores/appStore";
 </script>
@@ -8,7 +8,10 @@
 <nav>
   <h1>DIARIUM</h1>
   <ul>
-    <li class="nav-button" on:click={() => editMode.update(state => !state)}>{$editMode ? "Save" : "Edit"}</li>
+    <li class="nav-button" on:click={() => editMode.update(state => !state)}>
+      <Fa icon={faEdit} />
+      {$editMode ? "Save" : "Edit"}
+    </li>
     <li>
       <TextInput class="input" placeholder="Search..." />
     </li>
