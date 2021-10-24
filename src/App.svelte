@@ -4,10 +4,8 @@
   import { loggedIn } from "./stores/userStore";
 </script>
 
-<div>
-  {#if !$loggedIn}
-    <Login />
-  {:else}
-    <Main />
-  {/if}
-</div>
+{#if !$loggedIn}
+  <Login />
+{:else}
+  <Main />
+{/if}
