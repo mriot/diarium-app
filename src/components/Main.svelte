@@ -1,36 +1,27 @@
 <script>
   import Datepicker from "praecox-datepicker";
-  import Fa from "svelte-fa";
-  import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
   import { fade } from "svelte/transition";
-  import Editor from "@toast-ui/editor";
-  import "@toast-ui/editor/dist/toastui-editor.css"; // Editor's Style
-  import { onMount } from "svelte";
   import Nav from "./Nav.svelte";
-
-  let editor = null;
-
-  onMount(() => {
-    editor = new Editor({
-      el: document.querySelector("#editor"),
-      height: "500px",
-      initialEditType: "markdown", // markdown / wysiwyg
-      previewStyle: "vertical" // tab / vertical
-      // theme: "dark"
-    });
-  });
+  import { editMode } from "../stores/appStore";
+  import Editor from "./Editor.svelte";
 
   let marked = ["2021-10-9"];
 </script>
 
 <div id="root" transition:fade>
-  <Nav {editor} />
+  <Nav />
   <main>
-    <Datepicker {marked} />
+    <div id="sidebar">
+      <Datepicker {marked} />
+    </div>
     <div id="editor">
-      <h1>This is some nice content</h1>
-      <blockquote>This is a quote</blockquote>
-      <a href="google.com">This is a link</a>
+      {#if $editMode}
+        <Editor />
+      {:else}
+        <h1>This is some nice content</h1>
+        <blockquote>This is a quote</blockquote>
+        <a href="google.com">This is a link</a>
+      {/if}
     </div>
   </main>
 </div>
@@ -50,8 +41,14 @@
     justify-content: stretch;
   }
 
+  #sidebar {
+    height: 100%;
+  }
+
   #editor {
+    color: #000;
     width: 100%;
+    overflow: hidden;
     background-color: #fff;
   }
 </style>

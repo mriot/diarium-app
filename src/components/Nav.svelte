@@ -1,20 +1,16 @@
 <script>
   import Fa from "svelte-fa";
   import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-
-  export let editor;
+  import TextInput from "./common/TextInput.svelte";
+  import { editMode } from "../stores/appStore";
 </script>
 
 <nav>
   <h1>DIARIUM</h1>
-  <button on:click={() => console.log(editor.getHTML())}>Get HTML</button>
-  <button on:click={() => console.log(editor.getMarkdown())}>Get Markdown</button>
   <ul>
-    <li class="nav-button">Lorem</li>
-    <li class="nav-button">Lorem</li>
-    <li class="nav-button">Ipsum</li>
+    <li class="nav-button" on:click={() => editMode.update(state => !state)}>{$editMode ? "Save" : "Edit"}</li>
     <li>
-      <input type="text" class="input" placeholder="Search..." />
+      <TextInput class="input" placeholder="Search..." />
     </li>
     <li class="nav-button"><Fa icon={faSignOutAlt} /></li>
   </ul>
@@ -29,13 +25,17 @@
     border-bottom: 1px solid #191919;
 
     h1 {
+      margin: 0.3em;
       font-size: 2rem;
     }
 
     ul {
       display: flex;
       align-items: center;
-      gap: 1.5em;
+      gap: 0.5em;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
     }
 
     .nav-button {
