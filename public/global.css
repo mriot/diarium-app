@@ -16,3 +16,44 @@ body {
 a {
 	color: inherit;
 }
+
+/* CALENDAR */
+:root {
+	--praecox-calendar-custom-width: auto;
+	--praecox-calendar-custom-height: auto;
+	--praecox-calendar-custom-inner-width: 350px;
+	--praecox-calendar-custom-inner-height: 250px;
+	--praecox-calendar-custom-head-height: 50px;
+	--praecox-calendar-custom-icon-size: 1.3rem;
+	--praecox-calendar-custom-border-radius: 0px;
+	/* --praecox-calendar-custom-font-family: "Merriweather Sans", sans-serif; */
+	/* --praecox-calendar-custom-number-font-family: "Merriweather Sans", sans-serif; */
+
+	--praecox-calendar-custom-main-color: #efefef;
+	--praecox-calendar-custom-main-color-hover: inherit;
+	--praecox-calendar-custom-main-color-active: inherit;
+
+	--praecox-calendar-custom-focused-color: #ff0000;
+	--praecox-calendar-custom-adjunctive-color: #262931; /* today tile */
+	--praecox-calendar-custom-secondary-color: #262931; /* tile hover */
+	--praecox-calendar-custom-selected-color: #3C3F47; /* selected tile */
+
+	--praecox-calendar-custom-weekend-color: #20232a;
+	--praecox-calendar-custom-outsidemonth-color: #555;
+
+	--praecox-calendar-custom-overbackground-color: #20232a;
+	--praecox-calendar-custom-font-main-color: #efefef;
+	--praecox-calendar-custom-font-disabled-color: #68686d;
+	--praecox-calendar-custom-font-secondary-color: #fff;
+
+	--praecox-calendar-custom-background: #20232a;
+	--praecox-calendar-custom-background-hover: #262931;
+	--praecox-calendar-custom-border: none;
+	--praecox-calendar-custom-boxshadow: 0px 2px 3px 0 rgb(0 0 0 / 20%);
+}
+
+main #sidebar .calendar .is-focused {
+	color: #00ff8b;
+	box-shadow: inset 0 0 0 1px rgb(0 255 139 / 30%);
+	transition: all 0.2s;
+}
