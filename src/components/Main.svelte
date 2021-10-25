@@ -1,11 +1,14 @@
 <script>
-  import Datepicker from "praecox-datepicker";
   import { fade } from "svelte/transition";
   import Nav from "./Nav.svelte";
   import { editMode } from "../stores/appStore";
   import Editor from "./Editor.svelte";
+  import dayjs from "dayjs";
+  import Calendar from "./Calendar.svelte";
 
+  let disabled = ["2021-10-10"];
   let marked = ["2021-10-19"];
+  let viewDate = new Date();
   let content = `<h1>This is some nice content</h1>
   <blockquote>This is a quote</blockquote>
   <a href="www.google.com">This is a link</a>
@@ -16,7 +19,8 @@
   <Nav />
   <main>
     <div id="sidebar">
-      <Datepicker {marked} />
+      <div class="today" on:click={() => (viewDate = new Date())}>{dayjs(viewDate).format("dddd, DD. MMMM YYYY")}</div>
+      <Calendar {disabled} {marked} {viewDate} />
     </div>
     <div id="content-container">
       {#if $editMode}
@@ -47,6 +51,19 @@
 
   #sidebar {
     height: 100%;
+    border-right: 1px solid #191919;
+
+    .today {
+      cursor: pointer;
+      text-align: center;
+      padding: 0.5em;
+      font-size: 1.25rem;
+      font-weight: 300;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   #content-container {
