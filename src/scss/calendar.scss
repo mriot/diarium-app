@@ -1,4 +1,9 @@
 main #sidebar .calendar {
+  $white: #efefef;
+  $dark: #262931;
+  $dark-secondary: #20232a;
+
+
   --praecox-calendar-custom-width: auto;
   --praecox-calendar-custom-height: auto;
   --praecox-calendar-custom-inner-width: 350px;
@@ -9,31 +14,68 @@ main #sidebar .calendar {
   // --praecox-calendar-custom-font-family: "Merriweather Sans", sans-serif;
   // --praecox-calendar-custom-number-font-family: "Merriweather Sans", sans-serif;
 
-  --praecox-calendar-custom-main-color: #efefef;
-  --praecox-calendar-custom-main-color-hover: inherit;
-  --praecox-calendar-custom-main-color-active: inherit;
+  --praecox-calendar-custom-main-color: #{$white};
+  --praecox-calendar-custom-main-color-hover: #{$white};
+  --praecox-calendar-custom-main-color-active: #{$white};
 
   --praecox-calendar-custom-focused-color: #ff0000;
-  --praecox-calendar-custom-adjunctive-color: #262931; // today tile
-  --praecox-calendar-custom-secondary-color: #262931; // tile hover
-  --praecox-calendar-custom-selected-color: #3C3F47; // selected tile
+  --praecox-calendar-custom-adjunctive-color: #{$dark}; // today tile
+  --praecox-calendar-custom-secondary-color: #{lighten($dark, 10%)}; // tile hover
+  --praecox-calendar-custom-selected-color: #{lighten($dark, 20%)}; // selected tile
 
-  --praecox-calendar-custom-weekend-color: #20232a;
+  --praecox-calendar-custom-weekend-color: #{$dark-secondary};
   --praecox-calendar-custom-outsidemonth-color: #555;
 
-  --praecox-calendar-custom-overbackground-color: #20232a;
-  --praecox-calendar-custom-font-main-color: #efefef;
+  --praecox-calendar-custom-overbackground-color: #{$dark-secondary};
+  --praecox-calendar-custom-font-main-color: #{$white};
   --praecox-calendar-custom-font-disabled-color: #68686d;
   --praecox-calendar-custom-font-secondary-color: #fff;
 
-  --praecox-calendar-custom-background: #20232a;
-  --praecox-calendar-custom-background-hover: #262931;
+  // month/year selection
+  --praecox-calendar-custom-background: #{$dark-secondary};
+  --praecox-calendar-custom-background-hover: #{lighten($dark, 10%)};
+
   --praecox-calendar-custom-border: none;
   --praecox-calendar-custom-boxshadow: 0px 2px 3px 0 rgb(0 0 0 / 20%);
 
+  .calendar-tableCell {
+    // weekend styling (.calendar-weekend seems to be buggy)
+    // &.calendar-weekend {
+    //   outline: 1px dashed red;
+    // }
+    &:nth-child(6),
+    &:nth-child(7) {
+      span {
+        color: #ff5722;
+
+        &.is-outsideMonth:not(:hover) {
+          color: rgba(#ff5722, 0.2);
+        }
+      }
+    }
+
+    // applies to all tiles
+    span {
+      transition: background-color 0ms;
+    }
+  }
+
+  .current-year,
+  .current-month {
+    text-decoration: underline;
+  }
+
   .is-focused {
     color: #00ff8b;
-    box-shadow: inset 0 0 0 1px rgb(0 255 139 / 30%);
-    transition: all 0.2s;
+    box-shadow: inset 0 0 0 1px rgba(#00ff8b, 0.3);
+  }
+
+  .is-today {
+    text-decoration: underline;
+  }
+
+  .is-selected {
+    color: $white;
+    font-weight: bold;
   }
 }
