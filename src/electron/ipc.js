@@ -15,7 +15,7 @@ module.exports = ({ config, browserWindow }) => {
       defaultPath: app.getPath("desktop"),
       properties: ["openDirectory"],
       multiSelections: false,
-      message: "Select your DIARIUM folder"
+      message: "Select your DIARIUM folder",
     });
 
     if (!result.canceled) {
@@ -24,7 +24,7 @@ module.exports = ({ config, browserWindow }) => {
       } catch (error) {
         dialog.showMessageBox(browserWindow, {
           message: "Ooops, couldn't find the database!\n\nPlease make sure you have selected the right location.",
-          type: "error"
+          type: "error",
         });
         return false;
       }
@@ -41,7 +41,7 @@ module.exports = ({ config, browserWindow }) => {
       defaultPath: app.getPath("desktop"),
       properties: ["openDirectory"],
       multiSelections: false,
-      message: "Pick the location for your DIARIUM folder"
+      message: "Pick the location for your DIARIUM folder",
     });
 
     if (result.canceled) {
@@ -68,7 +68,7 @@ module.exports = ({ config, browserWindow }) => {
     } catch (error) {
       dialog.showMessageBox(browserWindow, {
         message: `Something went wrong while creating "media" folder :/\n\nError: ${error.code}`,
-        type: "error"
+        type: "error",
       });
       return false;
     }
@@ -87,11 +87,16 @@ module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("secret", (event, args) => {
     global.SECRET = "args";
     // db.createMockData();
-    db.getRecord(2022, 10, 23).then(data => console.log(data));
+    db.getRecord(2022, 10, 23).then((data) => console.log(data));
   });
 
   // ADD RECORD
   ipcMain.handle("add-record", (event, args) => {
     db.addRecord(args);
+  });
+
+  // GET ALL RECORDS
+  ipcMain.handle("get-all-records", (event, args) => {
+    return db.getAllRecords();
   });
 };
