@@ -6,8 +6,6 @@
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
 
-  let disabled = ["2021-10-10"];
-  let marked = ["2021-10-19"];
   let viewDate = new Date();
   let content = `<h1>This is some nice content</h1>
   <blockquote>This is a quote</blockquote>
@@ -20,7 +18,7 @@
   <main>
     <div id="sidebar">
       <div class="today" on:click={() => (viewDate = new Date())}>{dayjs(viewDate).format("dddd, DD. MMMM YYYY")}</div>
-      <Calendar {disabled} {marked} {viewDate} />
+      <Calendar {viewDate} />
     </div>
     <div id="content-container">
       {#if $editMode}
