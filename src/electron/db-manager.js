@@ -74,9 +74,9 @@ module.exports = {
     }
   },
 
-  async getRecord(year, month, day) {
+  async getRecord(date) {
     try {
-      const parsedDate = dayjs([...arguments].join("-"), "YYYY-MM-DD");
+      const parsedDate = dayjs(date, "YYYY-MM-DD");
       return await this.knex.select("*").from("records").where("date", parsedDate.format("YYYY-MM-DD")); // explicitly force format
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
