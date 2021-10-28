@@ -4,17 +4,30 @@
   import { onDestroy, onMount } from "svelte";
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
+  import { debounce, superSimpleHash } from "../utility";
 
-  export let content = null;
+  export let content = "";
 
   let editor;
+
+  const save = debounce(() => {
+    const currentContent = editor.getHTML();
+    if (superSimpleHash(content) !== superSimpleHash(currentContent)) {
+      // TODO
+      console.log("SAVE");
+    }
+    content = currentContent;
+  });
 
   onMount(() => {
     editor = new ToastEditor({
       el: document.querySelector("#toast-editor"),
       height: "100%",
       initialEditType: "markdown", // markdown / wysiwyg
-      previewStyle: "vertical", // tab / vertical
+      previewStyle: "vertical", // tab / vertical,
+      events: {
+        change: () => save(),
+      },
     });
 
     editor.setHTML(content ? content : `<h1>${dayjs().format("DD.MM.YYYY")}</h1><p></p>`);
