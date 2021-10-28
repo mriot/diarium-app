@@ -95,6 +95,17 @@ module.exports = {
     }
   },
 
+  async updateRecord(id, record) {
+    try {
+      return await this.knex("records").where("id", id).update({
+        content: record.content,
+        tags: record.tags,
+      });
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not update record with id ${id}\n\n${error}`, type: "error" });
+    }
+  },
+
   async getRecordById(id) {
     try {
       // TODO: decrypt results
