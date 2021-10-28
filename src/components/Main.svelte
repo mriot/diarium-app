@@ -5,12 +5,31 @@
   import Editor from "./Editor.svelte";
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
+  import { selectedDate } from "../stores/appStore";
 
+  let prevDate;
   let viewDate = new Date();
   let content = `<h1>This is some nice content</h1>
   <blockquote>This is a quote</blockquote>
   <a href="www.google.com">This is a link</a>
   <a href="./test2.html">Test Seite</a>`;
+
+  $: {
+    if (!prevDate || !dayjs($selectedDate).isSame(prevDate, "day")) {
+      (async () => {
+        try {
+          const record = await api.getRecord($selectedDate);
+          console.log(record);
+          content = record[0]?.content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`;
+        } catch (error) {
+          // TODO: error handling
+          console.error(error);
+        }
+      })();
+    }
+
+    prevDate = $selectedDate;
+  }
 </script>
 
 <div id="root" transition:fade>
