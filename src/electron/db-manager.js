@@ -16,10 +16,10 @@ module.exports = {
       this.knex = require("knex")({
         client: "sqlite3",
         connection: {
-          filename: path.join(diariumPath, "diarium.db")
+          filename: path.join(diariumPath, "diarium.db"),
         },
         useNullAsDefault: true,
-        debug: true
+        debug: true,
       });
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not init database\n\n${error}`, type: "error" });
@@ -87,7 +87,7 @@ module.exports = {
     try {
       await this.knex("records").insert({
         ...record,
-        content: AES.encrypt(record.content, global.SECRET)
+        content: AES.encrypt(record.content, global.SECRET),
       });
       return true;
     } catch (error) {
@@ -113,12 +113,12 @@ module.exports = {
           date: dayjs().add(i, "month").format("YYYY-MM-DD"),
           content: `<h1>Hello World ${i}</h1>`,
           // content: AES.encrypt(`<h1>Hello World ${i}</h1>`, global.SECRET),
-          tags: "ja lol ey"
+          tags: "ja lol ey",
         });
       }
       console.log("DONE");
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not create mock data\n\n${error}`, type: "error" });
     }
-  }
+  },
 };
