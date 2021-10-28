@@ -99,4 +99,9 @@ module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("get-all-records", (event, args) => {
     return db.getAllRecords();
   });
+
+  // GET RECORD
+  ipcMain.handle("get-record", (event, args) => {
+    return db.getRecord(args);
+  });
 };

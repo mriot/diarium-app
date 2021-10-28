@@ -7,4 +7,5 @@ contextBridge.exposeInMainWorld("api", {
   secret: (secret) => ipcRenderer.invoke("secret", secret),
   addRecord: (record) => ipcRenderer.invoke("add-record", record),
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
+  getRecord: (date) => ipcRenderer.invoke("get-record", date),
 });
