@@ -20,7 +20,7 @@
         try {
           const record = await api.getRecord($selectedDate);
           console.log(record);
-          content = record[0]?.content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`;
+          content = record[0]?.content;
         } catch (error) {
           // TODO: error handling
           console.error(error);
@@ -44,7 +44,7 @@
         <Editor {content} />
       {:else}
         <div class="content toastui-editor-contents" in:fade>
-          {@html content}
+          {@html content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`}
         </div>
       {/if}
     </div>
