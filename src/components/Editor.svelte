@@ -1,6 +1,6 @@
 <script>
   import { Editor as ToastEditor } from "@toast-ui/editor";
-  import "@toast-ui/editor/dist/toastui-editor.css"; // Editor's Style
+  import "@toast-ui/editor/dist/toastui-editor.css";
   import { onDestroy, onMount } from "svelte";
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
@@ -14,11 +14,10 @@
       el: document.querySelector("#toast-editor"),
       height: "100%",
       initialEditType: "markdown", // markdown / wysiwyg
-      previewStyle: "vertical" // tab / vertical
-      // initialValue: content ? content : `# ${dayjs().format("DD.MM.YYYY")}`
+      previewStyle: "vertical", // tab / vertical
     });
 
-    editor.setHTML(content ? content : `# ${dayjs().format("DD.MM.YYYY")}`);
+    editor.setHTML(content ? content : `<h1>${dayjs().format("DD.MM.YYYY")}</h1><p></p>`);
 
     // only when we populate the editor with default content
     if (!content) {
