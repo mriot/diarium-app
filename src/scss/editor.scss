@@ -1,0 +1,33 @@
+@import "./vars.scss";
+
+#toast-editor .toastui-editor-dark {
+  border: none;
+
+  .toastui-editor-toolbar {
+    .toastui-editor-defaultUI-toolbar {
+      border-radius: 0;
+      // background-color: ;
+    }
+  }
+
+  .toastui-editor-md-container,
+  .toastui-editor-ww-container {
+    background-color: $dark-secondary;
+  }
+
+  .toastui-editor-md-splitter {
+    background-color: #191919;
+  }
+
+  .toastui-editor-mode-switch {
+    border-top-color: #191919;
+    border-radius: 0;
+    background-color: $dark-secondary;
+
+    .tab-item {
+      &.active {
+        background-color: $dark;
+      }
+    }
+  }
+}

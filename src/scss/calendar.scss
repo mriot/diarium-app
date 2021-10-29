@@ -1,9 +1,6 @@
+@import "./vars.scss";
+
 main #sidebar .calendar {
-  $white: #efefef;
-  $dark: #262931;
-  $dark-secondary: #20232a;
-
-
   --praecox-calendar-custom-width: auto;
   --praecox-calendar-custom-height: auto;
   --praecox-calendar-custom-inner-width: 350px;
