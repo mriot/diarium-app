@@ -4,7 +4,7 @@
  * @param {Number} timeout - the time that shall pass before the function is called
  * @returns the debounced function
  */
-export const debounce = (func, timeout = 250) => {
+export const debounce = (func, timeout = 300) => {
   let timer;
   return () => {
     clearTimeout(timer);
