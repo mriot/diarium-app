@@ -1,8 +1,7 @@
 <script>
   import Datepicker from "praecox-datepicker";
-  import { selectedDate } from "../stores/appStore";
+  import { selectedDate, dayRecord } from "../stores/appStore";
   import "../scss/calendar.scss";
-  import { beforeUpdate } from "svelte";
   const { api } = window; // electron
 
   export let viewDate;
@@ -14,6 +13,14 @@
     store?.update((prev) => {
       return { ...prev, viewDate, selected: viewDate };
     });
+  }
+
+  $: {
+    if ($dayRecord?.date) {
+      store.update((prev) => {
+        return { ...prev, focused: [...prev.focused, $dayRecord.date] };
+      });
+    }
   }
 
   (async () => {
