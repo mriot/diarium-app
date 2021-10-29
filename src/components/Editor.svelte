@@ -1,11 +1,13 @@
 <script>
   import { Editor as ToastEditor } from "@toast-ui/editor";
-  import "@toast-ui/editor/dist/toastui-editor.css";
+  // import "@toast-ui/editor/dist/toastui-editor.css";
+  import "@toast-ui/editor/toastui-editor-dark.css";
+  import "../scss/editor.scss";
   import { onDestroy, onMount } from "svelte";
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
   import { debounce, superSimpleHash } from "../utility";
-  import { dayRecord } from "../stores/appStore";
+  import { dayRecord, selectedDate } from "../stores/appStore";
   const { api } = window;
 
   export let content = "";
@@ -18,16 +20,32 @@
       height: "100%",
       initialEditType: "markdown", // markdown / wysiwyg
       previewStyle: "vertical", // tab / vertical,
+      theme: "dark",
       events: {
         change: () => save(),
       },
     });
 
-    editor.setHTML(content ? content : `<h1>${dayjs().format("DD.MM.YYYY")}</h1><p></p>`);
+    editor.setHTML(content ? content : `<h1>${dayjs($selectedDate).format("DD.MM.YYYY")}</h1><p></p>`);
 
     // only when we populate the editor with default content
     if (!content) {
       editor.moveCursorToEnd();
+    }
+
+    // TODO
+    if (!$dayRecord?.id) {
+      api
+        .addRecord({
+          date: $selectedDate,
+          content,
+          tags: [],
+        })
+        .then((data) => {
+          if (data.length > 0) {
+            $dayRecord = data[0];
+          }
+        });
     }
   });
 
