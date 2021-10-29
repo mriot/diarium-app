@@ -104,4 +104,9 @@ module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("get-record", (event, args) => {
     return db.getRecord(args);
   });
+
+  // UPDATE RECORD
+  ipcMain.handle("update-record", (event, args) => {
+    return db.updateRecord(args);
+  });
 };

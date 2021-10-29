@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld("api", {
   createDiarium: () => ipcRenderer.invoke("create-diarium"),
   secret: (secret) => ipcRenderer.invoke("secret", secret),
   addRecord: (record) => ipcRenderer.invoke("add-record", record),
+  updateRecord: (record) => ipcRenderer.invoke("update-record", record),
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
   getRecord: (date) => ipcRenderer.invoke("get-record", date),
 });

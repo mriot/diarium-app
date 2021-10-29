@@ -95,9 +95,9 @@ module.exports = {
     }
   },
 
-  async updateRecord(id, record) {
+  async updateRecord(record) {
     try {
-      return await this.knex("records").where("id", id).update({
+      return await this.knex("records").where("id", record.id).update({
         content: record.content,
         tags: record.tags,
       });
