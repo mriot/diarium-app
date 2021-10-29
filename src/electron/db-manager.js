@@ -77,21 +77,32 @@ module.exports = {
   async getRecord(date) {
     try {
       const parsedDate = dayjs(date, "YYYY-MM-DD");
-      return await this.knex.select("*").from("records").where("date", parsedDate.format("YYYY-MM-DD")); // explicitly force format
+      return await this.knex.select("*").from("records").where("date", parsedDate.format("YYYY-MM-DD"));
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
     }
   },
 
   async addRecord(record) {
+    const date = dayjs(record.date).format("YYYY-MM-DD");
+
     try {
+      // TODO
+      const result = await this.getRecord(date);
+      if (result.length > 0) {
+        dialog.showMessageBox(null, { message: `Entry for ${date} already exists`, type: "error" });
+        return;
+      }
+
       await this.knex("records").insert({
-        ...record,
-        content: AES.encrypt(record.content, global.SECRET),
+        date,
+        content: record.content,
+        tags: record.tags,
       });
-      return true;
+
+      return await this.getRecord(date);
     } catch (error) {
-      dialog.showMessageBox(null, { message: `Could not write to database\n\n${error}`, type: "error" });
+      dialog.showMessageBox(null, { message: `Could not create record\n\n${error}`, type: "error" });
     }
   },
 
