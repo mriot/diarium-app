@@ -92,7 +92,7 @@ module.exports = ({ config, browserWindow }) => {
 
   // ADD RECORD
   ipcMain.handle("add-record", (event, args) => {
-    db.addRecord(args);
+    return db.addRecord(args);
   });
 
   // GET ALL RECORDS
