@@ -5,24 +5,20 @@
   import Editor from "./Editor.svelte";
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
-  import { selectedDate } from "../stores/appStore";
+  import { selectedDate, dayRecord } from "../stores/appStore";
 
   let prevDate;
   let viewDate = new Date();
-  let content = `<h1>This is some nice content</h1>
-  <blockquote>This is a quote</blockquote>
-  <a href="www.google.com">This is a link</a>
-  <a href="./test2.html">Test Seite</a>`;
 
+  // fetch record for selected date
   $: {
     if (!prevDate || !dayjs($selectedDate).isSame(prevDate, "day")) {
       (async () => {
         try {
           const record = await api.getRecord($selectedDate);
-          console.log(record);
-          content = record[0]?.content;
+          $dayRecord = record[0];
         } catch (error) {
-          // TODO: error handling
+          alert("Could not fetch record\n\n" + error.toString());
           console.error(error);
         }
       })();
@@ -41,10 +37,10 @@
     </div>
     <div id="content-container">
       {#if $editMode}
-        <Editor {content} />
+        <Editor content={$dayRecord?.content} />
       {:else}
         <div class="content toastui-editor-contents" in:fade>
-          {@html content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`}
+          {@html $dayRecord?.content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`}
         </div>
       {/if}
     </div>
