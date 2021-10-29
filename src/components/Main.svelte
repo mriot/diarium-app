@@ -35,7 +35,8 @@
       <div class="today" on:click={() => (viewDate = new Date())}>{dayjs(viewDate).format("dddd, DD. MMMM YYYY")}</div>
       <Calendar {viewDate} />
     </div>
-    <div id="content-container">
+    <!-- TODO classnames / theming -->
+    <div id="content-container" class="toastui-editor-dark" style="background-color: #20232a;">
       {#if $editMode}
         <Editor content={$dayRecord?.content} />
       {:else}
