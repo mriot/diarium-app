@@ -5,19 +5,12 @@
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
   import { debounce, superSimpleHash } from "../utility";
+  import { dayRecord } from "../stores/appStore";
+  const { api } = window;
 
   export let content = "";
 
   let editor;
-
-  const save = debounce(() => {
-    const currentContent = editor.getHTML();
-    if (superSimpleHash(content) !== superSimpleHash(currentContent)) {
-      // TODO
-      console.log("SAVE");
-    }
-    content = currentContent;
-  });
 
   onMount(() => {
     editor = new ToastEditor({
@@ -40,6 +33,23 @@
 
   onDestroy(() => {
     editor.destroy();
+  });
+
+  const save = debounce(() => {
+    const currentContent = editor.getHTML();
+    if (content && superSimpleHash(content) !== superSimpleHash(currentContent)) {
+      if ($dayRecord.id >= 0) {
+        console.log("SAVE");
+        dayRecord.update((record) => {
+          return {
+            ...record,
+            content: currentContent,
+          };
+        });
+        api.updateRecord($dayRecord);
+      }
+    }
+    content = currentContent;
   });
 </script>
 
