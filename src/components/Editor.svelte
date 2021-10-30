@@ -33,7 +33,7 @@
       editor.moveCursorToEnd();
     }
 
-    // TODO
+    // create a new entry when mounted
     if (!$dayRecord?.id) {
       api
         .addRecord({
@@ -55,7 +55,8 @@
 
   const save = debounce(() => {
     const currentContent = editor.getHTML();
-    if (content && superSimpleHash(content) !== superSimpleHash(currentContent)) {
+    // only save when content differs or when a new entry is created (content is empty)
+    if (superSimpleHash(content) !== superSimpleHash(currentContent) || $dayRecord.content?.length === 0) {
       if ($dayRecord.id >= 0) {
         console.log("SAVE");
         dayRecord.update((record) => {
