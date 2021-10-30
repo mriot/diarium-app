@@ -40,9 +40,15 @@
       {#if $editMode}
         <Editor content={$dayRecord?.content} />
       {:else}
-        <div class="content toastui-editor-contents" in:fade>
-          {@html $dayRecord?.content || `<h1 class="such-empty-message">Wow such empty 🌚</h1>`}
-        </div>
+        {#key $dayRecord}
+          <div class="content toastui-editor-contents" in:fade>
+            {#if $dayRecord?.content}
+              {@html $dayRecord?.content}
+            {:else}
+              <h1 class="such-empty">Wow such empty 🌚</h1>
+            {/if}
+          </div>
+        {/key}
       {/if}
     </div>
   </main>
@@ -61,6 +67,7 @@
     width: 100%;
     grid-column: 1/3;
     justify-content: stretch;
+    overflow-y: hidden;
   }
 
   #sidebar {
@@ -83,11 +90,20 @@
   #content-container {
     color: #000;
     width: 100%;
-    overflow: hidden;
     background-color: #fff;
   }
 
   .content {
     padding: 1em;
+    height: 100%;
+    overflow: auto;
+
+    .such-empty {
+      border: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transform: translateY(30vh);
+    }
   }
 </style>
