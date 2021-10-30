@@ -1,6 +1,6 @@
 <script>
   import { Editor as ToastEditor } from "@toast-ui/editor";
-  // import "@toast-ui/editor/dist/toastui-editor.css";
+  import "@toast-ui/editor/dist/toastui-editor.css";
   import "@toast-ui/editor/toastui-editor-dark.css";
   import "../scss/editor.scss";
   import { onDestroy, onMount } from "svelte";
