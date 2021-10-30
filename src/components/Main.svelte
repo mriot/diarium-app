@@ -100,8 +100,6 @@
 
     .such-empty {
       border: none;
-      width: 100%;
-      height: 100%;
       text-align: center;
       transform: translateY(30vh);
     }
