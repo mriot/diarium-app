@@ -2,6 +2,7 @@
   import Fa from "svelte-fa";
   import { faPen, faPlus, faSave, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
   import { editMode, dayRecord } from "../stores/appStore";
+  import { loggedIn } from "../stores/userStore";
 </script>
 
 <nav>
@@ -22,7 +23,7 @@
       <input type="text" class="search-input" placeholder="Search..." />
     </li>
     <li class="separator" />
-    <li class="nav-button"><Fa icon={faSignOutAlt} /></li>
+    <li class="nav-button" on:click={() => loggedIn.set(false)}><Fa icon={faSignOutAlt} /></li>
   </ul>
 </nav>
 
