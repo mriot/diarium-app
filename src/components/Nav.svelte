@@ -10,12 +10,12 @@
     <li class="nav-button" on:click={() => editMode.update((state) => !state)} class:active={$editMode}>
       {#if $dayRecord?.id}
         {#if $editMode}
-          <Fa icon={faSave} /> Save
+          <Fa icon={faSave} />&nbsp;&nbsp;Save
         {:else}
-          <Fa icon={faPen} /> Edit
+          <Fa icon={faPen} />&nbsp;&nbsp;Edit
         {/if}
       {:else}
-        <Fa icon={faPlus} /> Create
+        <Fa icon={faPlus} />&nbsp;&nbsp;Create
       {/if}
     </li>
     <li>
