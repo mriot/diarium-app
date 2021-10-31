@@ -6,6 +6,7 @@
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
   import { selectedDate, dayRecord } from "../stores/appStore";
+  import "../scss/content.scss";
 
   let prevDate;
   let viewDate = new Date();
