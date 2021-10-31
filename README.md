@@ -26,6 +26,7 @@
   - Markdown Preview
     - No preview?
     - Vertical / Horizontal splitting
+  - Hide / Replace "Wow, such empty" message
 
 ## Nav
 
@@ -47,6 +48,9 @@
   - Alternative: Via custom tags
 
 ## Calendar
+
+- Bug: Next / Prev not working?
+  - Sometimes is skips a month
 
 ## Editor
 
