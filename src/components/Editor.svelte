@@ -7,7 +7,7 @@
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
   import { debounce, superSimpleHash } from "../utility";
-  import { dayRecord, selectedDate } from "../stores/appStore";
+  import { dayRecord, selectedDate, allRecords } from "../stores/appStore";
   const { api } = window;
 
   export let content = "";
@@ -33,20 +33,21 @@
       editor.moveCursorToEnd();
     }
 
-    // create a new entry when mounted
-    if (!$dayRecord?.id) {
-      api
-        .addRecord({
+    // create a new entry when mounted and no dayRecord is available
+    (async () => {
+      if (!$dayRecord?.id) {
+        const result = await api.addRecord({
           date: $selectedDate,
           content,
           tags: [],
-        })
-        .then((data) => {
-          if (data.length > 0) {
-            $dayRecord = data[0];
-          }
         });
-    }
+
+        if (result.length > 0) {
+          $dayRecord = result[0];
+          $allRecords = await api.getAllRecords();
+        }
+      }
+    })();
   });
 
   onDestroy(() => {
@@ -55,6 +56,7 @@
 
   const save = debounce(() => {
     const currentContent = editor.getHTML();
+
     // only save when content differs or when a new entry is created (content is empty)
     if (superSimpleHash(content) !== superSimpleHash(currentContent) || $dayRecord.content?.length === 0) {
       if ($dayRecord.id >= 0) {
@@ -68,6 +70,7 @@
         api.updateRecord($dayRecord);
       }
     }
+
     content = currentContent;
   });
 </script>
