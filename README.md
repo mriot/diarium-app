@@ -29,9 +29,6 @@
 
 ## Nav
 
-- Different Icons for different states (create, edit, save)
-- Active styling
-
 ## Search
 
 - Fulltext AND tags?
