@@ -1,5 +1,5 @@
 <script>
-  import { fade } from "svelte/transition";
+  import { fade, blur } from "svelte/transition";
   import Nav from "./Nav.svelte";
   import { editMode } from "../stores/appStore";
   import Editor from "./Editor.svelte";
@@ -10,6 +10,7 @@
 
   let prevDate;
   let viewDate = new Date();
+  let easteregg = false;
 
   // fetch record for selected date
   $: {
@@ -29,14 +30,13 @@
   }
 </script>
 
-<div id="root" transition:fade>
+<div id="root" transition:blur>
   <Nav />
   <main>
     <div id="sidebar">
       <div class="today" on:click={() => (viewDate = new Date())}>{dayjs(viewDate).format("dddd, DD. MMMM YYYY")}</div>
       <Calendar {viewDate} />
     </div>
-    <!-- TODO classnames / theming -->
     <div id="content-container" class="toastui-editor-dark" style="background-color: #20232a;">
       {#if $editMode}
         <Editor content={$dayRecord?.content} />
@@ -46,7 +46,12 @@
             {#if $dayRecord?.content}
               {@html $dayRecord?.content}
             {:else}
-              <h1 class="such-empty">Wow such empty 🌚</h1>
+              <h1 class="such-empty" class:easteregg>
+                {#if !easteregg}
+                  Wow such empty
+                {/if}
+                <span on:click={() => (easteregg = !easteregg)}>🌚</span>
+              </h1>
             {/if}
           </div>
         {/key}
@@ -97,12 +102,20 @@
   .content {
     padding: 1em;
     height: 100%;
+    font-size: 2rem;
     overflow: auto;
 
     .such-empty {
-      border: none;
+      border: none !important;
       text-align: center;
       transform: translateY(30vh);
+      transition: none;
+
+      &.easteregg {
+        font-size: 100vw;
+        transform: translate(-15%, -30%);
+        transition: all 5s cubic-bezier(0, 0.71, 0.58, 1);
+      }
     }
   }
 </style>
