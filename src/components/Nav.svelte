@@ -59,9 +59,16 @@
       backface-visibility: hidden;
       user-select: none;
       transition: all 0.2s;
-    }
-    .nav-button:hover {
-      background-color: #33363e;
+
+      &.active {
+        color: #00b7ff;
+        border-color: #00b7ff;
+        border-radius: 3px 3px 0 0;
+      }
+
+      &:hover {
+        background-color: #33363e;
+      }
     }
   }
 </style>
