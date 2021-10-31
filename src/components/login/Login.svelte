@@ -1,18 +1,17 @@
 <script>
   import { loggedIn, secret } from "../../stores/userStore.js";
-  import { slide } from "svelte/transition";
   import Fa from "svelte-fa";
   import { faDatabase, faFile, faFolderOpen, faFolderPlus } from "@fortawesome/free-solid-svg-icons";
   const { api } = window; // electron
 
   let dbPath = "";
-  api.getConfig("dbPath").then(data => (dbPath = data));
+  api.getConfig("dbPath").then((data) => (dbPath = data));
 
   const selectDir = async () => {
     const result = await api.selectDb();
     console.log(result);
     if (result) {
-      api.getConfig("dbPath").then(data => (dbPath = data));
+      api.getConfig("dbPath").then((data) => (dbPath = data));
     }
   };
 
@@ -26,7 +25,7 @@
   };
 </script>
 
-<div class="container" transition:slide>
+<div class="container">
   <h1>DIARIUM</h1>
   <div class="box">
     {#if !dbPath}
