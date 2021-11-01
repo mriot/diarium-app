@@ -19,6 +19,13 @@
     - Links
     - Today
 
+## Shortcuts
+
+- CMD/CTRL + E = Toggle edit mode
+- CMD/CTRL + S = Force save (while in edit mode)
+- CMD/CTRL + F = Jump to search (focus)
+- CMD/CTRL + R = DISABLE REALOAD IN PROD (?)
+
 ## Settings / Preferences
 
 - Editor
