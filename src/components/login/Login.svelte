@@ -19,8 +19,9 @@
     api.createDiarium();
   };
 
+  // TODO
   const login = async () => {
-    api.secret($secret);
+    api.setSecret($secret);
     loggedIn.set(true);
   };
 </script>

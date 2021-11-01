@@ -84,10 +84,9 @@ module.exports = ({ config, browserWindow }) => {
   });
 
   // SECRET
-  ipcMain.handle("secret", (event, args) => {
-    global.SECRET = "args";
+  ipcMain.handle("set-secret", (event, args) => {
+    global.SECRET = args;
     // db.createMockData();
-    db.getRecord(2022, 10, 23).then((data) => console.log(data));
   });
 
   // ADD RECORD

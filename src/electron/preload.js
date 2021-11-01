@@ -4,7 +4,7 @@ contextBridge.exposeInMainWorld("api", {
   getConfig: (args) => ipcRenderer.invoke("get-config", args),
   selectDb: () => ipcRenderer.invoke("db-picker"),
   createDiarium: () => ipcRenderer.invoke("create-diarium"),
-  secret: (secret) => ipcRenderer.invoke("secret", secret),
+  setSecret: (secret) => ipcRenderer.invoke("set-secret", secret),
   addRecord: (record) => ipcRenderer.invoke("add-record", record),
   updateRecord: (record) => ipcRenderer.invoke("update-record", record),
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
