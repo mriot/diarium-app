@@ -16,17 +16,16 @@ module.exports = {
     }
   },
 
-  async get(setting) {
+  async get(key) {
     try {
       const configString = await readFile(this._configPath, { encoding: "utf-8" });
       const config = JSON.parse(configString);
-      return setting ? config[setting] : config;
+      return key ? config[key] : config;
     } catch (error) {
       console.log("config.get() failed!", error);
-      writeFile(this._configPath, JSON.stringify({}));
       dialog.showMessageBox(null, {
-        message: "Ooops, couldn't read the config file!\n\nFalling back to default config.",
-        type: "error"
+        message: "Ooops, couldn't read the config file!",
+        type: "error",
       });
     }
   },
@@ -38,6 +37,12 @@ module.exports = {
       writeFile(this._configPath, JSON.stringify(config));
     } catch (error) {
       console.log("config.write() failed!", error);
+      dialog.showMessageBox(null, {
+        message: "Ooops, couldn't write to the config file!",
+        type: "error",
+      });
+    }
+  },
 
   getSync(key) {
     try {
