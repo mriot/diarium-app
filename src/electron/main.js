@@ -17,31 +17,37 @@ const production = !process.env.ROLLUP_WATCH;
 config.init();
 let mainWindow = null;
 
-app.whenReady().then(async () => {
-  const { screen } = require("electron");
-
-  const primaryDisplay = screen.getPrimaryDisplay();
-  const { width, height } = primaryDisplay.workAreaSize;
+app.whenReady().then(() => {
+  const { x, y, width, height } = config.getSync("winBounds") || {};
 
   mainWindow = new BrowserWindow({
-    width: width,
-    height: height,
+    width,
+    height,
+    x,
+    y,
+    center: true,
     frame: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
-      // devTools: process.env.ROLLUP_WATCH
+      // devTools: !production
     },
   });
 
-  const dbPath = await config.get("dbPath");
+  const dbPath = config.getSync("dbPath");
   if (dbPath) db.init(dbPath);
-  require("./ipc")({ config, mainWindow });
+
+  require("./ipc")(config, mainWindow);
 
   mainWindow.loadFile(path.join(__dirname, "../../public/index.html"));
+
   !production && mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.on("will-navigate", handleRedirect);
   mainWindow.webContents.on("new-window", handleRedirect);
+
+  mainWindow.on("close", () => {
+    config.writeSync("winBounds", mainWindow.getBounds());
+  });
 });
 
 // don't open links in electron
