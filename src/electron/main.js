@@ -7,7 +7,7 @@ const db = require("./db-manager");
 process.env.ROLLUP_WATCH &&
   require("electron-reload")(path.join(__dirname, "./"), {
     electron: path.join(__dirname, "../../", "node_modules", ".bin", "electron"),
-    forceHardReset: true
+    forceHardReset: true,
   });
 
 // DEV: soft reload frontend
@@ -27,9 +27,9 @@ app.whenReady().then(async () => {
     height: height,
     frame: true,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js")
+      preload: path.join(__dirname, "preload.js"),
       // devTools: process.env.ROLLUP_WATCH
-    }
+    },
   });
 
   const dbPath = await config.get("dbPath");
