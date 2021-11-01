@@ -1,6 +1,6 @@
 <script>
   import Datepicker from "praecox-datepicker";
-  import { selectedDate, allRecords } from "../stores/appStore";
+  import { selectedDate, allRecords, viewDate as calendarViewDate } from "../stores/appStore";
   import "../scss/calendar.scss";
   import { onMount } from "svelte";
   const { api } = window; // electron
@@ -12,6 +12,8 @@
   onMount(async () => {
     $allRecords = await api.getAllRecords();
   });
+
+  $: $calendarViewDate = $store?.viewDate;
 
   $: {
     store?.update((prev) => {
