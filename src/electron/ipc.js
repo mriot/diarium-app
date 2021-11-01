@@ -109,4 +109,9 @@ module.exports = ({ config, browserWindow }) => {
   ipcMain.handle("update-record", (event, args) => {
     return db.updateRecord(args);
   });
+
+  // DELETE RECORD
+  ipcMain.handle("delete-record", (event, args) => {
+    return db.deleteRecord(args);
+  });
 };

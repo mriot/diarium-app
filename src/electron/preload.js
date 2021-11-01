@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld("api", {
   updateRecord: (record) => ipcRenderer.invoke("update-record", record),
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
   getRecord: (date) => ipcRenderer.invoke("get-record", date),
+  deleteRecord: (id) => ipcRenderer.invoke("delete-record", id),
 });

@@ -127,6 +127,14 @@ module.exports = {
     }
   },
 
+  async deleteRecord(id) {
+    try {
+      return this.knex("records").where("id", id).del();
+    } catch (error) {
+      dialog.showMessageBox(null, { message: `Could not delete from database\n\n${error}`, type: "error" });
+    }
+  },
+
   async createMockData() {
     console.log("CREATING MOCK DATA");
     try {

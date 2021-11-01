@@ -1,13 +1,35 @@
 <script>
   import Fa from "svelte-fa";
-  import { faPen, faPlus, faSave, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-  import { editMode, dayRecord } from "../stores/appStore";
+  import { faPen, faPlus, faSave, faSignOutAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+  import { editMode, dayRecord, allRecords } from "../stores/appStore";
   import { loggedIn } from "../stores/userStore";
+
+  const { api } = window;
 </script>
 
 <nav>
   <h1>DIARIUM</h1>
   <ul>
+    {#if $editMode}
+      <li
+        class="nav-button"
+        on:click={async () => {
+          if (!$dayRecord.id) {
+            alert(`Can't find record with id ${$dayRecord.id} to delte`);
+            return;
+          }
+
+          if (confirm("Do you really want to delete this record?")) {
+            api.deleteRecord($dayRecord.id);
+            $editMode = false;
+            $dayRecord = {};
+            $allRecords = await api.getAllRecords();
+          }
+        }}
+      >
+        <Fa icon={faTrash} />&nbsp;&nbsp;Delete
+      </li>
+    {/if}
     <li class="nav-button" on:click={() => editMode.update((state) => !state)} class:active={$editMode}>
       {#if $dayRecord?.id}
         {#if $editMode}
