@@ -3,4 +3,12 @@
   h1 {
     border-bottom-style: solid;
   }
+
+  .toastui-editor-md-preview-highlight::after {
+    content: ">";
+    color: #55575f;
+    top: 0;
+    left: -15px;
+    background: none;
+  }
 }
