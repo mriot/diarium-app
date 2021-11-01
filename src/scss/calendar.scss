@@ -45,7 +45,8 @@ main #sidebar .calendar {
       span {
         color: #ff5722;
 
-        &.is-outsideMonth:not(:hover) {
+        // reduce opacity when not hovered or selected
+        &.is-outsideMonth:not(:hover):not(.is-selected) {
           color: rgba(#ff5722, 0.2);
         }
       }
