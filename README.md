@@ -56,8 +56,10 @@
 
 ## Calendar
 
+- Changing month should auto-select 1st of month(?)
+  - Entering edit mode / creating a record should jump to given date
 - Bug: Next / Prev not working?
-  - Sometimes is skips a month
+  - Sometimes it skips a month (october 2021)
 
 ## Editor
 
