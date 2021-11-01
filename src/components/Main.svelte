@@ -5,6 +5,7 @@
   import Editor from "./Editor.svelte";
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
+  import Stats from "./Stats.svelte";
   import { selectedDate, dayRecord } from "../stores/appStore";
   import "../scss/content.scss";
 
@@ -36,6 +37,7 @@
     <div id="sidebar">
       <div class="today" on:click={() => (viewDate = new Date())}>{dayjs(viewDate).format("dddd, DD. MMMM YYYY")}</div>
       <Calendar {viewDate} />
+      <Stats />
     </div>
     <div id="content-container" class="toastui-editor-dark" style="background-color: #20232a;">
       {#if $editMode}
