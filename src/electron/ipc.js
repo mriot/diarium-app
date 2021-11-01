@@ -3,7 +3,7 @@ const path = require("path");
 const { mkdir, stat } = require("fs/promises");
 const db = require("./db-manager");
 
-module.exports = ({ config, browserWindow }) => {
+module.exports = (config, browserWindow) => {
   // GET CONFIG
   ipcMain.handle("get-config", async (event, args) => {
     return await config.get(args);
