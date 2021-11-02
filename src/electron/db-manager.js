@@ -33,7 +33,7 @@ module.exports = {
         table.date("date");
         table.text("content", "MEDIUMTEXT");
         table.text("tags");
-        table.timestamps();
+        table.timestamps(false, true);
       });
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not create database\n\n${error}`, type: "error" });
