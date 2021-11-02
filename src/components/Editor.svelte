@@ -3,7 +3,7 @@
   import "@toast-ui/editor/dist/toastui-editor.css";
   import "@toast-ui/editor/toastui-editor-dark.css";
   import "../scss/editor.scss";
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import dayjs from "dayjs";
   import { debounce, superSimpleHash } from "../utility";
@@ -48,10 +48,6 @@
         }
       }
     })();
-  });
-
-  onDestroy(() => {
-    editor.destroy();
   });
 
   const save = debounce(() => {
