@@ -1,12 +1,11 @@
 <script>
   import { fade, blur } from "svelte/transition";
   import Nav from "./Nav.svelte";
-  import { editMode } from "../stores/appStore";
   import Editor from "./Editor.svelte";
   import dayjs from "dayjs";
   import Calendar from "./Calendar.svelte";
   import Stats from "./Stats.svelte";
-  import { selectedDate, dayRecord } from "../stores/appStore";
+  import { selectedDate, dayRecord, editMode } from "../stores/appStore";
   import "../scss/content.scss";
 
   let prevDate;
@@ -29,6 +28,28 @@
 
     prevDate = $selectedDate;
   }
+
+  document.body.addEventListener("keydown", (event) => {
+    if (event.metaKey || event.ctrlKey) {
+      switch (event.key) {
+        case "e":
+          event.preventDefault();
+          $editMode = !$editMode;
+          break;
+        case "f":
+          event.preventDefault();
+          console.log("search");
+          break;
+        case "r":
+          // TODO production check
+          // event.preventDefault();
+          break;
+      }
+    } else if (!$editMode && event.key === "e") {
+      event.preventDefault();
+      $editMode = true;
+    }
+  });
 </script>
 
 <div id="root" transition:blur>
