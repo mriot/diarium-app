@@ -8,6 +8,7 @@
   import dayjs from "dayjs";
   import { debounce, superSimpleHash } from "../utility";
   import { dayRecord, selectedDate, allRecords } from "../stores/appStore";
+  import SaveStatus from "./SaveStatus.svelte";
   const { api } = window;
 
   export let content = "";
@@ -72,3 +73,6 @@
 </script>
 
 <div id="toast-editor" in:fade />
+{#if $dayRecord}
+  <SaveStatus saveDate={$dayRecord?.updated_at} />
+{/if}
