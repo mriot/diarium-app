@@ -6,6 +6,7 @@
 
 ## General
 
+- Flush all when logging out
 - (Re)moving DB while logged in
   - Check for DB on every backend OP?
   - Handle errors properly (show user a message that action x could not be completed)
@@ -20,11 +21,6 @@
     - Today
 
 ## Shortcuts
-
-- CMD/CTRL + E = Toggle edit mode
-- CMD/CTRL + S = Force save (while in edit mode)
-- CMD/CTRL + F = Jump to search (focus)
-- CMD/CTRL + R = DISABLE REALOAD IN PROD (?)
 
 ## Settings / Preferences
 
@@ -63,6 +59,8 @@
 
 ## Editor
 
+- Save status should update dynamically
+  - Fix timestamps (<https://knexjs.org/#Schema-timestamp>)
 - Image "upload" (not base64)
 - Multimedia support
   - Audio
