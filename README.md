@@ -6,6 +6,7 @@
 
 ## General
 
+- Add CMD flag/env to skip login
 - Flush all when logging out
 - (Re)moving DB while logged in
   - Check for DB on every backend OP?
