@@ -17,8 +17,7 @@
     if (!prevDate || !dayjs($selectedDate).isSame(prevDate, "day")) {
       (async () => {
         try {
-          const record = await api.getRecord($selectedDate);
-          $dayRecord = record[0];
+          $dayRecord = await api.getRecord({ date: $selectedDate });
         } catch (error) {
           alert("Could not fetch record\n\n" + error.toString());
           console.error(error);

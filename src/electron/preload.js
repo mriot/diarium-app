@@ -8,6 +8,6 @@ contextBridge.exposeInMainWorld("api", {
   addRecord: (record) => ipcRenderer.invoke("add-record", record),
   updateRecord: (record) => ipcRenderer.invoke("update-record", record),
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
-  getRecord: (date) => ipcRenderer.invoke("get-record", date),
+  getRecord: (args) => ipcRenderer.invoke("get-record", args),
   deleteRecord: (id) => ipcRenderer.invoke("delete-record", id),
 });

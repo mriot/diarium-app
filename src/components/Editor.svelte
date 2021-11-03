@@ -37,26 +37,26 @@
     // create a new entry when mounted and no dayRecord is available
     (async () => {
       if (!$dayRecord?.id) {
-        const result = await api.addRecord({
+        const record = await api.addRecord({
           date: $selectedDate,
           content,
           tags: [],
         });
 
-        if (result.length > 0) {
-          $dayRecord = result[0];
+        if (record?.id) {
+          $dayRecord = record;
           $allRecords = await api.getAllRecords();
         }
       }
     })();
   });
 
-  const save = debounce(() => {
+  const save = debounce(async () => {
     const currentContent = editor.getHTML();
 
     // only save when content differs or when a new entry is created (content is empty)
     if (superSimpleHash(content) !== superSimpleHash(currentContent) || $dayRecord.content?.length === 0) {
-      if ($dayRecord.id >= 0) {
+      if ($dayRecord?.id >= 0) {
         console.log("SAVE");
         dayRecord.update((record) => {
           return {
@@ -64,7 +64,7 @@
             content: currentContent,
           };
         });
-        api.updateRecord($dayRecord);
+        $dayRecord = await api.updateRecord($dayRecord);
       }
     }
 

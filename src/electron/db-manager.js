@@ -28,7 +28,7 @@ module.exports = {
 
   async createDb() {
     try {
-      await this.knex.schema.createTable("records", function (table) {
+      await this.knex.schema.createTable("records", (table) => {
         table.increments();
         table.date("date");
         table.text("content", "MEDIUMTEXT");
@@ -74,10 +74,16 @@ module.exports = {
     }
   },
 
-  async getRecord(date) {
+  // TODO: decrypt
+  async getRecord({ date, id }) {
     try {
+      if (id) {
+        return await this.knex.first("*").from("records").where("id", id);
+        // console.log("outputty:", AES.decrypt(result[0].content, global.SECRET));
+      }
+
       const parsedDate = dayjs(date, "YYYY-MM-DD");
-      return await this.knex.select("*").from("records").where("date", parsedDate.format("YYYY-MM-DD"));
+      return await this.knex.first("*").from("records").where("date", parsedDate.format("YYYY-MM-DD"));
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
     }
@@ -87,9 +93,8 @@ module.exports = {
     const date = dayjs(record.date).format("YYYY-MM-DD");
 
     try {
-      // TODO
-      const result = await this.getRecord(date);
-      if (result.length > 0) {
+      const check = await this.getRecord({ date });
+      if (check?.id) {
         dialog.showMessageBox(null, { message: `Entry for ${date} already exists`, type: "error" });
         return;
       }
@@ -100,7 +105,7 @@ module.exports = {
         tags: record.tags,
       });
 
-      return await this.getRecord(date);
+      return await this.getRecord({ date });
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not create record\n\n${error}`, type: "error" });
     }
@@ -108,22 +113,17 @@ module.exports = {
 
   async updateRecord(record) {
     try {
-      return await this.knex("records").where("id", record.id).update({
-        content: record.content,
-        tags: record.tags,
-      });
+      await this.knex("records")
+        .where("id", record.id)
+        .update({
+          content: record.content,
+          tags: record.tags,
+          updated_at: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        });
+
+      return await this.getRecord({ id: record.id });
     } catch (error) {
       dialog.showMessageBox(null, { message: `Could not update record with id ${id}\n\n${error}`, type: "error" });
-    }
-  },
-
-  async getRecordById(id) {
-    try {
-      // TODO: decrypt results
-      return await this.knex.select("*").from("records").where("id", id);
-      // console.log("outputty:", AES.decrypt(result[0].content, global.SECRET));
-    } catch (error) {
-      dialog.showMessageBox(null, { message: `Could not read from database\n\n${error}`, type: "error" });
     }
   },
 
