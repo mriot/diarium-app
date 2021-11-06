@@ -10,4 +10,5 @@ contextBridge.exposeInMainWorld("api", {
   getAllRecords: () => ipcRenderer.invoke("get-all-records"),
   getRecord: (args) => ipcRenderer.invoke("get-record", args),
   deleteRecord: (id) => ipcRenderer.invoke("delete-record", id),
+  search: (string) => ipcRenderer.invoke("search", string),
 });

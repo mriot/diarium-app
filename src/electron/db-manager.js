@@ -10,6 +10,30 @@ const dayjs = require("dayjs");
 
 module.exports = {
   knex: null,
+  _decryptedEntries: [],
+
+  async search(string) {
+    console.clear();
+    console.log("SEARCH START");
+    const words = string.split(" ");
+
+    if (this._decryptedEntries.length > 0) {
+      // search here first
+    }
+
+    // search in DB
+    // return this.knex.select("*").from("records").where("content", "like", "%test%");
+    return await this.knex
+      .select("*")
+      .from("records")
+      .where((builder) => {
+        words.forEach((word) => {
+          builder.andWhere("content", "like", `%${word}%`);
+        });
+      });
+
+    // store decrypted in array
+  },
 
   init(diariumPath) {
     try {

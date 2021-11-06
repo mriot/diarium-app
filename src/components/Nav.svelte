@@ -2,9 +2,18 @@
   import Fa from "svelte-fa";
   import { faPen, faPlus, faSave, faSignOutAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
   import { editMode, dayRecord, allRecords } from "../stores/appStore";
+  import SearchResult from "./SearchResult.svelte";
   import { loggedIn } from "../stores/userStore";
+  import { debounce } from "../utility";
 
   const { api } = window;
+
+  let searchValue;
+
+  const search = debounce(async () => {
+    const result = await api.search(searchValue);
+    console.log(result);
+  }, 500);
 </script>
 
 <nav>
@@ -42,7 +51,15 @@
       {/if}
     </li>
     <li>
-      <input type="text" class="search-input" placeholder="Search..." />
+      <input type="text" class="search-input" placeholder="Search..." bind:value={searchValue} on:keyup={search} />
+      <ul class="search-results">
+        <li>
+          <SearchResult />
+        </li>
+        <li>
+          <SearchResult />
+        </li>
+      </ul>
     </li>
     <li class="separator" />
     <li class="nav-button" on:click={() => loggedIn.set(false)}><Fa icon={faSignOutAlt} /></li>
@@ -57,25 +74,26 @@
     align-items: center;
     color: #9e9e9e;
     border-bottom: 1px solid #191919;
+
+    > ul {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      > li {
+        position: relative;
+        margin: 0 0.5em;
+      }
+    }
   }
 
   h1 {
     color: #fff;
     margin: 0.3em;
     font-size: 2rem;
-  }
-
-  ul {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-
-    li {
-      margin: 0 0.5em;
-    }
   }
 
   .separator {
@@ -119,5 +137,17 @@
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
     background-color: #424347;
     transition: border 0.3s, box-shadow 0.2s, color 0.5s;
+  }
+
+  .search-results {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      outline: 1px dashed red;
+    }
   }
 </style>

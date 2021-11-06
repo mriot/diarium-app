@@ -113,4 +113,9 @@ module.exports = (config, browserWindow) => {
   ipcMain.handle("delete-record", (event, args) => {
     return db.deleteRecord(args);
   });
+
+  // SEARCH
+  ipcMain.handle("search", (event, args) => {
+    return db.search(args);
+  });
 };
