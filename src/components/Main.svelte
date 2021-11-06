@@ -45,8 +45,8 @@
           break;
       }
     } else if (!$editMode && event.key === "e") {
-      event.preventDefault();
-      $editMode = true;
+      // event.preventDefault();
+      // $editMode = true;
     }
   });
 </script>
