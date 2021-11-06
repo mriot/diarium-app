@@ -31,6 +31,7 @@
     - No preview?
     - Vertical / Horizontal splitting
   - Hide / Replace "Wow, such empty" message
+- Date format
 
 ## Nav
 
