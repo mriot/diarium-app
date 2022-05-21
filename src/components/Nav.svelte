@@ -9,10 +9,16 @@
   const { api } = window;
 
   let searchValue;
+  let searchResults = [];
 
   const search = debounce(async () => {
+    if (searchValue.length < 3) {
+      searchResults = [];
+      return;
+    }
     const result = await api.search(searchValue);
     console.log(result);
+    searchResults = result;
   }, 500);
 </script>
 
@@ -52,22 +58,23 @@
     </li>
     <li>
       <input type="text" class="search-input" placeholder="Search..." bind:value={searchValue} on:keyup={search} />
-      <ul class="search-results">
-        <li>
-          <SearchResult />
-        </li>
-        <li>
-          <SearchResult />
-        </li>
-      </ul>
     </li>
     <li class="separator" />
     <li class="nav-button" on:click={() => loggedIn.set(false)}><Fa icon={faSignOutAlt} /></li>
   </ul>
+
+  {#if searchResults.length > 0}
+    <div class="search-results">
+      {#each searchResults as result}
+        <SearchResult {result} />
+      {/each}
+    </div>
+  {/if}
 </nav>
 
 <style lang="scss">
   nav {
+    position: relative;
     grid-column: 1/3;
     display: flex;
     justify-content: space-between;
@@ -129,6 +136,7 @@
     appearance: none;
     outline: none;
     padding: 0.5em 1em;
+    min-width: min(300px, 30vw);
     font-size: inherit;
     color: inherit;
     margin-top: 0;
@@ -141,13 +149,8 @@
 
   .search-results {
     position: absolute;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-
-    li {
-      outline: 1px dashed red;
-    }
+    top: 100%;
+    right: 1px;
+    z-index: 100;
   }
 </style>
