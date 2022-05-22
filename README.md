@@ -7,12 +7,10 @@
 ## General
 
 - Add CMD flag/env to skip login
-- Flush all when logging out
+- Flush all data when logging out
 - (Re)moving DB while logged in
   - Check for DB on every backend OP?
   - Handle errors properly (show user a message that action x could not be completed)
-- Open App centered with a specific width and height
-  - On successful login -> resize window to fit screen
 - Navigation while in edit mode
   - Find out what happens
     - Try to fool-proof (error handling)
@@ -25,6 +23,9 @@
 
 ## Settings / Preferences
 
+- Prefs should be stored in DB
+- Window
+  - position and size
 - Editor
   - Markdown or WYSIWYG
   - Markdown Preview
@@ -32,6 +33,7 @@
     - Vertical / Horizontal splitting
   - Hide / Replace "Wow, such empty" message
 - Date format
+- Language
 
 ## Nav
 
@@ -80,7 +82,7 @@
   - Sickness
   - Highlight
   - NSFW (content should be blurred)
-  - Custom tags? (For search)
+  - Custom tags? (For search?)
 
 ## Stats (Sidebar)
 
@@ -106,6 +108,8 @@
   - hash routing: <https://github.com/ItalyPaleAle/svelte-spa-router>
 
 ## Login
+
+- Save last login to DB
 
 ## Logout
 
