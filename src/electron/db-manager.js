@@ -57,6 +57,7 @@ module.exports = {
         table.date("date");
         table.text("content", "MEDIUMTEXT");
         table.text("tags");
+        table.integer("number_of_edits");
         table.timestamps(false, true);
       });
     } catch (error) {
