@@ -6,126 +6,18 @@ This is the successor for my [web-based DIARIUM](https://github.com/mriot/diariu
 This project is currently stalling due to lack of time (as of Dec 2022) but I plan to continue my work on this.
 
 
+<img width="1904" alt="editor" src="https://user-images.githubusercontent.com/24588573/208269042-8722ecf6-f276-49f0-b354-2c0d6a095dc8.png">
+
+<details>
+  <summary>👀 more images and a little video demo</summary>
+  
+  <img width="1904" alt="empty" src="https://user-images.githubusercontent.com/24588573/208269044-73ca6243-2211-4c4b-9bb5-24b04cf25896.png">
+  <img width="1904" alt="login screen" src="https://user-images.githubusercontent.com/24588573/208269045-b6f434ac-0256-486c-8c18-f75237fa00a5.png">
+  https://user-images.githubusercontent.com/24588573/208269076-e901edd2-e019-48e6-ae7a-76141c9dc6f0.mov
+</details>
 
 ---
 
 Checkout and `npm i` then `npm run dev`  
 While deving you'll also need to checkout <https://github.com/mriot/praecox-datepicker> and place its folder next to diarium-app folder.
-
----
-
-## Database
-
-- Number of edits?
-
-## General
-
-- Add CMD flag/env to skip login
-- Flush all data when logging out
-- (Re)moving DB while logged in
-  - Check for DB on every backend OP?
-  - Handle errors properly (show user a message that action x could not be completed)
-- Navigation while in edit mode
-  - Find out what happens
-    - Try to fool-proof (error handling)
-  - Disable all navigation while in edit mode
-    - Calendar
-    - Links
-    - Today
-
-## Shortcuts
-
-## Settings / Preferences
-
-- Prefs should be stored in DB
-- Window
-  - position and size
-- Editor
-  - Markdown or WYSIWYG
-  - Markdown Preview
-    - No preview?
-    - Vertical / Horizontal splitting
-  - Hide / Replace "Wow, such empty" message
-- Date format
-- Language
-
-## Nav
-
-## Search
-
-- Fulltext AND tags?
-- Problem: text/content is encrypted
-  - Solution 1: After login, show little progressbar and decrypt all entries in the background
-    - Store them in memory? :/
-    - Store them in DB and delete them from DB upon clicking "Logout"?
-- Searchresults
-  - big dropdown with results
-    - date, few lines content, tags
-
-## Mood Heatmap
-
-- Need custom classes for calendar
-- Need custom menu for Editor
-  - Alternative: Via custom tags
-
-## Calendar
-
-- Changing month should auto-select 1st of month(?)
-  - Entering edit mode / creating a record should jump to given date
-- Bug: Next / Prev not working?
-  - Sometimes it skips a month (october 2021)
-
-## Editor
-
-- Save status should update dynamically
-  - Fix timestamps (<https://knexjs.org/#Schema-timestamp>)
-- Image "upload" (not base64)
-- Multimedia support
-  - Audio
-  - Video
-  - Embeds
-- Customs
-  - Current time separator  --- 01:25 ---
-
-## Content View
-
-## Tags/Labels
-
-- Which
-  - Vacation
-  - Sickness
-  - Highlight
-  - NSFW (content should be blurred)
-  - Custom tags? (For search?)
-
-## Stats (Sidebar)
-
-- Current entry
-  - Last edited
-  - Created
-- Entries in current year (with progressbar / percent)
-- Entries in current month (with progressbar / percent)
-- Overall entries
-
-## Stats +
-
-- Biggest / Longest entry
-- Best strike (x entries in a row)
-- First most negative / positive rating for day (mood heatmap)
-
-## Linking
-
-- We don't have a URL (visible)
-- Force calendar into "month" view?
-- /YEAR/MONTH/DAY links should link to specific day
-  - client side routing may be good enough
-  - hash routing: <https://github.com/ItalyPaleAle/svelte-spa-router>
-
-## Login
-
-- Save last login to DB
-
-## Logout
-
-- Flush secret and other user data
-- Switch to Login screen
+<br>
