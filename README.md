@@ -1,4 +1,18 @@
-# DIARIUM APP
+# DIARIUM desktop app
+
+Diary electron app written in Svelte.  
+This is the successor for my [web-based DIARIUM](https://github.com/mriot/diarium) app.
+
+This project is currently stalling due to lack of time (as of Dec 2022) but I plan to continue my work on this.
+
+
+
+---
+
+Checkout and `npm i` then `npm run dev`  
+While deving you'll also need to checkout <https://github.com/mriot/praecox-datepicker> and place its folder next to diarium-app folder.
+
+---
 
 ## Database
 
