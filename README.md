@@ -1,9 +1,7 @@
 # DIARIUM desktop app
 
 Diary electron app written in Svelte.  
-All data is stored in a sqlite DB on the user's computer and no backend is involved!
-
-This is the successor of my [web-based DIARIUM](https://github.com/mriot/diarium) app.
+All data is stored in a sqlite DB on the user's computer.
 
 📢 **This project is currently stalling due to lack of time (as of Dec 2022) but I plan to continue my work on this.**
 
